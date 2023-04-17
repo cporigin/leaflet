@@ -1,21 +1,13 @@
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 
 import { Box } from '@mui/material';
-import { memo, useEffect, useRef } from 'react';
+import { memo, useEffect } from 'react';
 import motionStore from 'stores/motion.store';
 
 import FeatureLeaflet from './features';
 
 const Leaflet = memo(function LeaftletComponent(props) {
-  const [mode, layers, addTempLayer, updateTempLayer, selectedSpace, mapRef] =
-    motionStore((e) => [
-      e.mode,
-      e.layers,
-      e.addTempLayer,
-      e.updateTempLayer,
-      e.selectedSpace,
-      e.mapRef
-    ]);
+  const [mapRef] = motionStore((e) => [e.mapRef]);
 
   return (
     <Box
