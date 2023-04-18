@@ -1,9 +1,0 @@
-/**
- * @see https://bit.dev/reference/typescript/typescript-config
- */
-{
-  "include": ["**/*.ts", "**/*.json"],
-  "compilerOptions": {
-    "strict": false
-  }
-}
