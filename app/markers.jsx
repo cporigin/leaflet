@@ -1,12 +1,12 @@
 import { memo } from 'react';
-import motionStore from 'stores/motion.store';
-import CustomMarker from 'components/branch/floor-plan/marker';
 import { filter, isEmpty } from 'lodash';
+import floorPlanStore from './stores/floor-plan.store';
+import CustomMarker from './marker';
 import { JSXMarker } from './jsx-marker';
 import CustomEditControl from './edit-control';
 
 const Markers = memo(function MarkersComponent() {
-  const [tempMarkers, selectedSpace] = motionStore((e) => [
+  const [tempMarkers, selectedSpace] = floorPlanStore((e) => [
     filter(e.tempLayers, { type: 'marker' }),
     e.selectedSpace
   ]);

@@ -1,9 +1,9 @@
 import { filter, isEmpty, map } from 'lodash';
-import motionStore from 'stores/motion.store';
+import floorPlanStore from '../stores/floor-plan.store';
 import Polygon from './polygon';
 
 export default function Polygons() {
-  const [tempMarkers, selectedSpace] = motionStore((e) => [
+  const [tempMarkers, selectedSpace] = floorPlanStore((e) => [
     filter(e.tempLayers, { type: 'polygon' }),
     e.selectedSpace
   ]);

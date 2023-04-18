@@ -1,7 +1,7 @@
 /**
  * this is the main configuration file of your bit workspace.
  * for full documentation, please see: https://bit.dev/docs/workspace/workspace-configuration
- **/{
+ **/ {
   "$schema": "https://static.bit.dev/teambit/schemas/schema.json",
   /**
    * main configuration of the Bit workspace.
@@ -10,7 +10,7 @@
     /**
      * the name of the component workspace. used for development purposes.
      **/
-    "name": "leaflet",
+    "name": "cp-origin",
     /**
      * set the icon to be shown on the Bit server.
      **/
@@ -27,7 +27,7 @@
     /**
      * default scope for all components in workspace.
      **/
-    "defaultScope": "leaflet"
+    "defaultScope": "cp-origin.floor-plan"
   },
   /**
    * main configuration for component dependency resolution.
@@ -38,9 +38,33 @@
      */
     "packageManager": "teambit.dependencies/pnpm",
     "policy": {
-      "dependencies": {},
-      "peerDependencies": {}
-    }
+      "dependencies": {
+        "@learnbit-react/material-ui.theme.theme-provider": "0.0.1",
+        "@teambit/compilation.babel-compiler": "^0.0.2",
+        "@teambit/defender.eslint-linter": "^0.0.8",
+        "@teambit/defender.jest-tester": "^0.0.8",
+        "@teambit/defender.prettier-formatter": "^0.0.5",
+        "@teambit/dependencies.modules.packages-excluder": "^0.0.70",
+        "@teambit/preview.react-preview": "^0.0.31",
+        "@teambit/react.mounter": "^0.0.8",
+        "@teambit/react.react-env": "^0.0.55",
+        "@teambit/typescript.typescript-compiler": "^0.0.7"
+      },
+      "peerDependencies": {
+        "@emotion/react": "^11.10.6",
+        "@emotion/styled": "^11.10.6",
+        "@mui/material": "^5.12.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+      }
+    },
+    "linkCoreAspects": true
+  },
+  "teambit.preview/preview": {
+    "disabled": true
+  },
+  "teambit.react/react": {
+    "disableLinting": true
   },
   /**
    * workspace variants allow to set different subsets of configuration for components in your
@@ -57,7 +81,7 @@
       /**
        * uncomment to apply the chosen environment on all components.
        **/
-      // "teambit.react/react": { }
+      // "teambit.react/react": {}
     }
   }
 }

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { FeatureGroup } from 'react-leaflet';
 import { EditControl } from 'react-leaflet-draw';
-import motionStore from 'stores/motion.store';
+import floorPlanStore from './stores/floor-plan.store';
 
 export default function CustomEditControl(props) {
   if (props.disabled) {
@@ -15,7 +15,7 @@ export default function CustomEditControl(props) {
     isAdding,
     tempLayers,
     setTempLayers
-  ] = motionStore((e) => [
+  ] = floorPlanStore((e) => [
     e.mode,
     e.addTempLayer,
     e.removeTempLayer,
@@ -71,7 +71,7 @@ export default function CustomEditControl(props) {
       layers: { _layers }
     } = e;
 
-    let removeList = [];
+    const removeList = [];
 
     Object.values(_layers).map((id) => {
       removeList.push(id);
@@ -97,8 +97,8 @@ export default function CustomEditControl(props) {
     },
     onCreated: handleCreated,
     onDeleted: handleDeleted,
-    onMounted: onMounted,
-    onEditVertex: onEditVertex
+    onMounted,
+    onEditVertex
   };
 
   useEffect(() => {

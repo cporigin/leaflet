@@ -1,6 +1,5 @@
 import { Chip, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { MarkerToolTipContent } from 'components/branch/floor-plan/marker/tooltip';
 import { Tooltip } from 'react-leaflet';
 
 export default function ChildrenTooltip(props) {

@@ -2,12 +2,21 @@ import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 
 import { Box } from '@mui/material';
 import { memo, useEffect } from 'react';
-import motionStore from 'stores/motion.store';
+import floorPlanStore from './stores/floor-plan.store';
+import markerStore from './stores/marker.store';
+import polygonStore from './stores/polygon.store';
 
 import FeatureLeaflet from './features';
 
 const Leaflet = memo(function LeaftletComponent(props) {
-  const [mapRef] = motionStore((e) => [e.mapRef]);
+  const [mapRef] = floorPlanStore((e) => [e.mapRef]);
+  const setPolygonColor = polygonStore((e) => e.setStatusColor);
+  const setMarkerColor = markerStore((e) => e.setStatusColor);
+
+  useEffect(() => {
+    setPolygonColor(props.polygonColor);
+    setMarkerColor(props.setMarkerColor);
+  }, [props]);
 
   return (
     <Box
@@ -61,7 +70,7 @@ const Leaflet = memo(function LeaftletComponent(props) {
 function InitMapStore() {
   const map = useMap();
 
-  const setMap = motionStore((e) => e.setMap);
+  const setMap = floorPlanStore((e) => e.setMap);
 
   useEffect(() => {
     setMap(map);
@@ -69,5 +78,7 @@ function InitMapStore() {
 
   return <></>;
 }
+
+export { floorPlanStore, markerStore, polygonStore };
 
 export default Leaflet;

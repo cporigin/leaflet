@@ -1,6 +1,6 @@
 import L from 'leaflet';
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { Marker } from 'react-leaflet';
 
 /**

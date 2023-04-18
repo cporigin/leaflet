@@ -9,11 +9,29 @@
  */
 
 {
-    "floor-plan": {
+    "app": {
+        "scope": "cp-origin.floor-plan",
+        "version": "0.1.7",
+        "mainFile": "index.jsx",
+        "rootDir": "app"
+    },
+    "envs/my-node-env": {
+        "scope": "cp-origin.floor-plan",
+        "version": "0.0.2",
+        "mainFile": "index.ts",
+        "rootDir": "floor-plan/envs/my-node-env"
+    },
+    "envs/my-react-env": {
+        "scope": "cp-origin.floor-plan",
+        "version": "0.0.1",
+        "mainFile": "index.ts",
+        "rootDir": "floor-plan/envs/my-react-env"
+    },
+    "envs/react-with-mui": {
         "scope": "",
-        "version": "",
-        "mainFile": "index.js",
-        "rootDir": "leaflet/floor-plan"
+        "version": "0.0.1",
+        "mainFile": "index.ts",
+        "rootDir": "floor-plan/envs/react-with-mui"
     },
     "$schema-version": "15.0.0"
 }

@@ -1,7 +1,6 @@
-import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { isEmpty } from 'lodash';
-import { CircleMarker, Pane } from 'react-leaflet';
+import { CircleMarker } from 'react-leaflet';
 
 export default function ChildrenMarker(props) {
   if (isEmpty(props.positions)) {

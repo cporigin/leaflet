@@ -1,22 +1,22 @@
-import { Chip, Grid, Typography } from '@mui/material';
-import { SPACE_CATEGORY } from 'constants/space';
-import faker from 'faker';
+import { Grid, Typography } from '@mui/material';
 import { useEffect, useMemo, useRef } from 'react';
 import { Pane, Polygon } from 'react-leaflet';
-import motionStore from 'stores/motion.store';
 import {
   calculateCenterOfPositions,
   calculatePolybelOfPositions
-} from 'utils/leaflet';
+} from '../utils/leaflet';
 import CustomEditControl from '../edit-control';
 import { JSXMarker } from '../jsx-marker';
 import ChildrenMarker from './marker';
+import floorPlanStore from '../stores/floor-plan.store';
 import ChildrenTooltip from './tooltip';
+import polygonStore from '../stores/polygon.store';
 
 export default function CustomPolygon(props) {
   const { layer, selectedLayer } = props;
   const polygonRef = useRef();
-  const [disabledMarker, mode] = motionStore((e) => [
+  const statusColor = polygonStore();
+  const [disabledMarker, mode] = floorPlanStore((e) => [
     e.mode === 'edit' && selectedLayer,
     e.mode
   ]);
@@ -52,7 +52,7 @@ export default function CustomPolygon(props) {
         key={layer.id}
         attribution={layer.id}
         color="#2b2b2b"
-        fillColor={SPACE_CATEGORY?.[props.layer.category]?.color}
+        fillColor={statusColor?.[props.layer.category]?.color}
         pathOptions={{
           fillOpacity: 0.85
         }}
