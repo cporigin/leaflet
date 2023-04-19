@@ -15,7 +15,7 @@ const Leaflet = memo(function LeaftletComponent(props) {
 
   useEffect(() => {
     setPolygonColor(props.polygonColor);
-    setMarkerColor(props.setMarkerColor);
+    setMarkerColor(props.markerColor);
   }, [props]);
 
   return (

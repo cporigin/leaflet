@@ -1,7 +1,22 @@
 {
-  "name": "@cporigin/leaflet",
-  "version": "0.0.1",
+  "name": "@zonxpk/leaflet",
+  "version": "0.0.5",
+  "main": "index.jsx",
   "dependencies": {
-    "leaflet-draw": "^1.0.4"
+    "leaflet-draw": "^1.0.4",
+    "@mui/icons-material": "5.11.11",
+    "@mui/material": "5.12.1",
+    "@mui/system": "5.11.14",
+    "framer-motion": "10.8.4",
+    "immer": "9.0.19",
+    "leaflet": "1.9.3",
+    "lodash": "4.17.21",
+    "polylabel": "1.1.0",
+    "react": ">=18.2.0 <19.0.0",
+    "react-dom": ">=18.2.0 <19.0.0",
+    "react-leaflet": "4.2.1",
+    "react-leaflet-draw": "0.20.4",
+    "react-router-dom": "6.8.1",
+    "zustand": "4.3.6"
   }
 }

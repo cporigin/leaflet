@@ -15,7 +15,7 @@ import polygonStore from '../stores/polygon.store';
 export default function CustomPolygon(props) {
   const { layer, selectedLayer } = props;
   const polygonRef = useRef();
-  const statusColor = polygonStore();
+  const statusColor = polygonStore((e) => e.statusColor);
   const [disabledMarker, mode] = floorPlanStore((e) => [
     e.mode === 'edit' && selectedLayer,
     e.mode

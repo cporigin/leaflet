@@ -3,7 +3,7 @@ import MarkerToolTip from '../tooltip';
 import markerStore from '../../stores/marker.store';
 
 export default function CicleMarker(props) {
-  const statusColor = markerStore();
+  const statusColor = markerStore((e) => e.statusColor);
 
   return (
     <MarkerToolTip>
