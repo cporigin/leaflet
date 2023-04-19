@@ -1,6 +1,6 @@
 {
   "name": "@zonxpk/leaflet",
-  "version": "0.0.7a",
+  "version": "0.0.9",
   "main": "index.jsx",
   "dependencies": {
     "@mui/icons-material": "5.11.11",
