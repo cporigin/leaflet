@@ -1,6 +1,6 @@
 {
   "name": "@zonxpk/leaflet",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "index.jsx",
   "dependencies": {
     "leaflet-draw": "^1.0.4",

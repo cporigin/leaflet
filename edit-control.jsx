@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef } from 'react';
-import { FeatureGroup } from 'react-leaflet';
-import { EditControl } from 'react-leaflet-draw';
-import floorPlanStore from './stores/floor-plan.store';
+import { useCallback, useEffect, useRef } from "react";
+import { FeatureGroup } from "react-leaflet";
+import { EditControl } from "react-leaflet-draw";
+import floorPlanStore from "./stores/floor-plan.store";
 
 export default function CustomEditControl(props) {
   if (props.disabled) {
@@ -14,14 +14,14 @@ export default function CustomEditControl(props) {
     removeTempLayer,
     isAdding,
     tempLayers,
-    setTempLayers
+    setTempLayers,
   ] = floorPlanStore((e) => [
     e.mode,
     e.addTempLayer,
     e.removeTempLayer,
-    e.mode === 'add',
+    e.mode === "add",
     e.tempLayers,
-    e.setTempLayers
+    e.setTempLayers,
   ]);
 
   const drawControlRef = useRef();
@@ -34,7 +34,7 @@ export default function CustomEditControl(props) {
     const { layerType: type, layer } = e;
 
     // multiple draw logic
-    if (type === 'polygon') {
+    if (type === "polygon") {
       const { _leaflet_id } = layer;
       const newLayer = { type, positions: layer.getLatLngs()[0] };
 
@@ -42,11 +42,11 @@ export default function CustomEditControl(props) {
       e.target?._layers?.[_leaflet_id]?.remove();
     }
 
-    if (type === 'circle') {
+    if (type === "circle") {
       console.log(e);
     }
 
-    if (type === 'marker') {
+    if (type === "marker") {
       const { lat = null, lng = null } = { ...layer?._latlng };
 
       addTempLayer({ type, positions: [{ lat, lng }] });
@@ -68,7 +68,7 @@ export default function CustomEditControl(props) {
 
   const handleDeleted = useCallback((e) => {
     const {
-      layers: { _layers }
+      layers: { _layers },
     } = e;
 
     const removeList = [];
@@ -81,28 +81,28 @@ export default function CustomEditControl(props) {
   }, []);
 
   const defaultControl = {
-    position: 'topright',
+    position: "topright",
     draw: {
       circle: false,
       polyline: false,
       circlemarker: false,
       rectangle: false,
       marker: false,
-      polygon: isAdding
+      polygon: isAdding,
     },
     edit: {
       featureGroup: false,
       edit: false,
-      remove: false
+      remove: false,
     },
     onCreated: handleCreated,
     onDeleted: handleDeleted,
     onMounted,
-    onEditVertex
+    onEditVertex,
   };
 
   useEffect(() => {
-    if (mode === 'add') {
+    if (mode === "add") {
       if (drawControlRef.current) {
         drawControlRef.current._toolbars.draw._modes.polygon.handler.enable();
       }
