@@ -1,6 +1,6 @@
 import { Place } from "@mui/icons-material";
 import { motion, useDragControls } from "framer-motion";
-import floorPlanStore from "stores/floor-plan.store";
+import floorPlanStore from "@/stores/floor-plan.store";
 import MarkerToolTip from "../tooltip";
 import useMarkerState from "./hook";
 
