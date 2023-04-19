@@ -1,14 +1,14 @@
-import { memo } from 'react';
-import { filter, isEmpty } from 'lodash';
-import floorPlanStore from './stores/floor-plan.store';
-import CustomMarker from './marker';
-import { JSXMarker } from './jsx-marker';
-import CustomEditControl from './edit-control';
+import { memo } from "react";
+import { filter, isEmpty } from "lodash";
+import floorPlanStore from "./stores/floor-plan.store";
+import CustomMarker from "./markers";
+import { JSXMarker } from "./jsx-marker";
+import CustomEditControl from "./edit-control";
 
 const Markers = memo(function MarkersComponent() {
   const [tempMarkers, selectedSpace] = floorPlanStore((e) => [
-    filter(e.tempLayers, { type: 'marker' }),
-    e.selectedSpace
+    filter(e.tempLayers, { type: "marker" }),
+    e.selectedSpace,
   ]);
 
   if (isEmpty(tempMarkers)) {
@@ -26,10 +26,11 @@ const Markers = memo(function MarkersComponent() {
               attribution={marker.id}
               position={[marker.positions?.[0].lat, marker.positions?.[0].lng]}
               iconOptions={{
-                className: 'jsx-marker',
+                className: "jsx-marker",
                 iconSize: [100, 100],
-                iconAnchor: [50, 50]
-              }}>
+                iconAnchor: [50, 50],
+              }}
+            >
               <div>
                 <CustomMarker />
               </div>
