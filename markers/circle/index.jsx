@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import MarkerToolTip from "../tooltip";
-import markerStore from "@/stores/marker.store";
+import markerStore from "../../stores/marker.store";
 
 export default function CicleMarker(props) {
   const statusColor = markerStore((e) => e.statusColor);

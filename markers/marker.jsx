@@ -1,7 +1,7 @@
 import { memo, useMemo } from "react";
-import floorPlanStore from "@/stores/floor-plan.store";
 import PinMarker from "./pin";
 import CicleMarker from "./circle";
+import floorPlanStore from "../stores/floor-plan.store";
 
 const markers = {
   pin: PinMarker,

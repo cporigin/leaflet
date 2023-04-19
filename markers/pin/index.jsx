@@ -1,8 +1,8 @@
 import { Place } from "@mui/icons-material";
 import { motion, useDragControls } from "framer-motion";
-import floorPlanStore from "@/stores/floor-plan.store";
 import MarkerToolTip from "../tooltip";
 import useMarkerState from "./hook";
+import floorPlanStore from "../../stores/floor-plan.store";
 
 export default function PinMarker(props) {
   const controls = useDragControls();

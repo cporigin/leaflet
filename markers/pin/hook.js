@@ -1,5 +1,5 @@
 import produce from "immer";
-import floorPlanStore from "@/stores/floor-plan.store";
+import floorPlanStore from "../../stores/floor-plan.store";
 
 export default function useMarkerState(status) {
   const [mode] = floorPlanStore((e) => [e.mode]);

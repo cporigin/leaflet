@@ -4,10 +4,6 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["*"]
-    },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
