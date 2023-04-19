@@ -1,4 +1,4 @@
-import { Box, Chip, Tooltip, Typography } from '@mui/material';
+import { Box, Chip, Tooltip, Typography } from "@mui/material";
 
 export default function MarkerToolTip(props) {
   if (props.disabled) {
@@ -11,26 +11,27 @@ export default function MarkerToolTip(props) {
       placement="top"
       arrow
       title={<MarkerToolTipContent />}
-      sx={{ zIndex: 'auto' }}
+      sx={{ zIndex: "auto" }}
       componentsProps={{
         tooltip: {
           sx: {
-            bgcolor: 'background.paper',
-            border: '1px solid #C7C7C7',
-            boxShadow: '0px 5px 6px rgba(0, 0, 0, 0.25)',
-            borderRadius: 2
-          }
+            bgcolor: "background.paper",
+            border: "1px solid #C7C7C7",
+            boxShadow: "0px 5px 6px rgba(0, 0, 0, 0.25)",
+            borderRadius: 2,
+          },
         },
         arrow: {
           sx: {
-            '&:before': {
-              border: '1px solid #C7C7C7'
+            "&:before": {
+              border: "1px solid #C7C7C7",
             },
             fontSize: 16,
-            color: 'background.paper'
-          }
-        }
-      }}>
+            color: "background.paper",
+          },
+        },
+      }}
+    >
       {props.children}
     </Tooltip>
   );
@@ -49,7 +50,7 @@ export function MarkerToolTipContent(props) {
         color="error"
         label="ไม่ว่าง"
         sx={{
-          mt: 1
+          mt: 1,
         }}
       />
     </Box>

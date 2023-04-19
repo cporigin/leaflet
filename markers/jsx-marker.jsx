@@ -1,7 +1,7 @@
-import L from 'leaflet';
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import { Marker } from 'react-leaflet';
+import L from "leaflet";
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import { Marker } from "react-leaflet";
 
 /**
  * React-leaflet marker that allows for fully interactive JSX in icon
@@ -39,4 +39,4 @@ export const JSXMarker = React.forwardRef(
   }
 );
 
-JSXMarker.displayName = 'Marker';
+JSXMarker.displayName = "Marker";
