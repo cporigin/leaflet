@@ -1,14 +1,14 @@
-import { memo, useMemo } from 'react';
-import floorPlanStore from '../stores/floor-plan.store';
-import PinMarker from './pin';
-import CicleMarker from './circle';
+import { memo, useMemo } from "react";
+import floorPlanStore from "stores/floor-plan.store";
+import PinMarker from "./pin";
+import CicleMarker from "./circle";
 
 const markers = {
   pin: PinMarker,
-  circle: CicleMarker
+  circle: CicleMarker,
 };
 
-const defaultType = 'circle';
+const defaultType = "circle";
 
 const CustomMarker = memo(function Marker(props) {
   const selectedSpace = floorPlanStore((e) => e.selectedSpace);
@@ -17,10 +17,10 @@ const CustomMarker = memo(function Marker(props) {
   const { id, top, left } = { ...props };
 
   const status = useMemo(
-    () => (id === selectedSpace?.id ? 'selected' : 'default'),
+    () => (id === selectedSpace?.id ? "selected" : "default"),
     [id, selectedSpace?.id]
   );
-  const isSelected = status === 'selected';
+  const isSelected = status === "selected";
 
   return (
     <MotionMarker

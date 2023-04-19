@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { filter, isEmpty } from "lodash";
-import floorPlanStore from "./stores/floor-plan.store";
+import floorPlanStore from "stores/floor-plan.store";
 import CustomMarker from "./markers";
 import { JSXMarker } from "./jsx-marker";
 import CustomEditControl from "./edit-control";
