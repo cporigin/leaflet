@@ -1,27 +1,27 @@
-import { Grid, Typography } from '@mui/material';
-import { useEffect, useMemo, useRef } from 'react';
-import { Pane, Polygon } from 'react-leaflet';
+import { Grid, Typography } from "@mui/material";
+import { useEffect, useMemo, useRef } from "react";
+import { Pane, Polygon } from "react-leaflet";
 import {
   calculateCenterOfPositions,
-  calculatePolybelOfPositions
-} from '../utils/leaflet';
-import CustomEditControl from '../edit-control';
-import { JSXMarker } from '../jsx-marker';
-import ChildrenMarker from './marker';
-import floorPlanStore from '../stores/floor-plan.store';
-import ChildrenTooltip from './tooltip';
-import polygonStore from '../stores/polygon.store';
+  calculatePolybelOfPositions,
+} from "../utils/leaflet";
+import CustomEditControl from "../edit-control";
+import { JSXMarker } from "../markers/jsx-marker";
+import ChildrenMarker from "./marker";
+import floorPlanStore from "../stores/floor-plan.store";
+import ChildrenTooltip from "./tooltip";
+import polygonStore from "../stores/polygon.store";
 
 export default function CustomPolygon(props) {
   const { layer, selectedLayer } = props;
   const polygonRef = useRef();
   const statusColor = polygonStore((e) => e.statusColor);
   const [disabledMarker, mode] = floorPlanStore((e) => [
-    e.mode === 'edit' && selectedLayer,
-    e.mode
+    e.mode === "edit" && selectedLayer,
+    e.mode,
   ]);
 
-  const status = props.layer.status ? 'error' : 'success';
+  const status = props.layer.status ? "error" : "success";
 
   const center = useMemo(
     () =>
@@ -40,7 +40,7 @@ export default function CustomPolygon(props) {
     if (polygonRef.current && props?.selectedLayer) {
       polygonRef.current.editing.enable();
     }
-    if (mode !== 'edit') {
+    if (mode !== "edit") {
       polygonRef.current.editing.disable();
     }
   }, [props?.selectedLayer, mode]);
@@ -54,13 +54,14 @@ export default function CustomPolygon(props) {
         color="#2b2b2b"
         fillColor={statusColor?.[props.layer.category]?.color}
         pathOptions={{
-          fillOpacity: 0.85
+          fillOpacity: 0.85,
         }}
         positions={
           layer.positions?.[0]
             ? layer.positions?.map((position) => [position.lat, position.lng])
             : []
-        }>
+        }
+      >
         <Pane style={{ zIndex: 105 }}>
           <ChildrenTooltip {...childrenProps} />
         </Pane>
@@ -87,10 +88,11 @@ function CustomLabel(props) {
       className="jsx-marker"
       attribution="polygon-jsx-marker"
       iconOptions={{
-        className: 'polygon-jsx-marker',
+        className: "polygon-jsx-marker",
         iconSize: [100, 100],
-        iconAnchor: [50, 50]
-      }}>
+        iconAnchor: [50, 50],
+      }}
+    >
       <Grid
         container
         justifyContent="center"
@@ -99,8 +101,9 @@ function CustomLabel(props) {
         mt={4}
         // mt={8}
         sx={{
-          pointerEvents: 'none'
-        }}>
+          pointerEvents: "none",
+        }}
+      >
         {/* <Chip size="small" color={props.status} label={props.code} /> */}
         <Typography fontWeight={600}>
           {props.code}

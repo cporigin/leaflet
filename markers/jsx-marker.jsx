@@ -39,4 +39,4 @@ export const JSXMarker = React.forwardRef(
   }
 );
 
-JSXMarker.displayName = "Marker";
+JSXMarker.displayName = "JSXMarker";

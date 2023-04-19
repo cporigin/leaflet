@@ -1,6 +1,6 @@
-import { Chip, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import { Tooltip } from 'react-leaflet';
+import { Chip, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import { Tooltip } from "react-leaflet";
 
 export default function ChildrenTooltip(props) {
   return (
@@ -14,9 +14,9 @@ export default function ChildrenTooltip(props) {
         </Typography>
         <Chip
           color={props.status}
-          label={props.status === 'success' ? 'ว่าง' : 'ไม่ว่าง'}
+          label={props.status === "success" ? "ว่าง" : "ไม่ว่าง"}
           sx={{
-            mt: 1
+            mt: 1,
           }}
         />
       </Box>

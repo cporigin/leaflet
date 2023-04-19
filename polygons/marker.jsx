@@ -1,6 +1,6 @@
-import { useTheme } from '@mui/material/styles';
-import { isEmpty } from 'lodash';
-import { CircleMarker } from 'react-leaflet';
+import { useTheme } from "@mui/material/styles";
+import { isEmpty } from "lodash";
+import { CircleMarker } from "react-leaflet";
 
 export default function ChildrenMarker(props) {
   if (isEmpty(props.positions)) {
@@ -14,10 +14,11 @@ export default function ChildrenMarker(props) {
       center={props.center}
       pathOptions={{
         fillOpacity: 1,
-        color: `${theme.palette[props.status ?? 'error'].main}` ?? '#1F8A70',
-        pointerEvents: 'none'
+        color: `${theme.palette[props.status ?? "error"].main}` ?? "#1F8A70",
+        pointerEvents: "none",
       }}
-      radius={10}>
+      radius={10}
+    >
       {props.children}
     </CircleMarker>
   );

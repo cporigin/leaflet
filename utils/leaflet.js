@@ -1,5 +1,5 @@
-import { isNil } from 'lodash';
-import polylabel from 'polylabel';
+import { isNil } from "lodash";
+import polylabel from "polylabel";
 
 export function calculateCenterOfPositions(positions) {
   const numPositions = positions.length;
