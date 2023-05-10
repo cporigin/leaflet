@@ -1,8 +1,8 @@
-import { remove } from 'lodash';
-import { createRef } from 'react';
-import { create } from 'zustand';
-import { combine } from 'zustand/middleware';
-import { immer } from 'zustand/middleware/immer';
+import { remove } from "lodash";
+import { createRef } from "react";
+import { create } from "zustand";
+import { combine } from "zustand/middleware";
+import { immer } from "zustand/middleware/immer";
 
 interface ISelectedSpace {
   id?: string | number;
@@ -14,12 +14,12 @@ interface IPosition {
 }
 
 interface ITempPayload {
-  type: 'marker' | 'polygon';
+  type: "marker" | "polygon";
   positions?: IPosition[];
 }
 
 const floorPlanState = {
-  mode: 'default',
+  mode: "default",
   selectedLayer: {},
   layers: [] as any[],
   tempLayers: [] as any[],
@@ -27,18 +27,19 @@ const floorPlanState = {
   mapRef: createRef(),
   selectedSpace: {} as ISelectedSpace,
   flyTo: () => {},
-  removeControl: () => {}
+  removeControl: () => {},
+  isDownload: false,
 };
 
 const floorPlanStore = create(
   immer(
     combine(floorPlanState, (set, get) => ({
       setMode: (newMode: string) => {
-        const isDeselected = !newMode || newMode === 'default';
+        const isDeselected = !newMode || newMode === "default";
 
         set({
           mode: newMode,
-          ...(isDeselected && { selected: {}, selectedSpace: {} })
+          ...(isDeselected && { selected: {}, selectedSpace: {} }),
         });
       },
       setSelectedLayer: (selectedLayer: { id: any }) =>
@@ -52,14 +53,14 @@ const floorPlanStore = create(
       setLayers: (layers: never[]) =>
         set({
           layers,
-          tempLayers: layers
+          tempLayers: layers,
         }),
       setTempLayers: (tempLayers: any[]) => set({ tempLayers }),
       addTempLayer: (payload: ITempPayload) =>
         set((draft) => {
           const newLayer = {
             ...draft.selectedSpace,
-            ...payload
+            ...payload,
           };
 
           draft.tempLayers = [...draft?.layers, newLayer];
@@ -73,7 +74,7 @@ const floorPlanStore = create(
 
           e.tempLayers[markerIndex] = {
             ...e.selectedSpace,
-            ...payload
+            ...payload,
           };
         }),
       removeLayer: (id: any) =>
@@ -93,14 +94,15 @@ const floorPlanStore = create(
         }),
       clearLayers: () => set({ layers: [] }),
       saveTempLayers: () =>
-        set((e) => ({ mode: 'default', layers: [...e.tempLayers] })),
+        set((e) => ({ mode: "default", layers: [...e.tempLayers] })),
       resetTempLayers: () =>
-        set((e) => ({ mode: 'default', tempLayers: e.layers })),
+        set((e) => ({ mode: "default", tempLayers: e.layers })),
       setSelectedSpace: (selectedSpace: any) => set({ selectedSpace }),
       // cosmetic
       setMap: (map: any) => set({ mapControl: map }),
       setFlyTo: (flyTo: any) => set({ flyTo }),
-      setRemoveControl: (removeControl: any) => set({ removeControl })
+      setRemoveControl: (removeControl: any) => set({ removeControl }),
+      setIsDownload: (isDownload: boolean) => set({ isDownload }),
     }))
   )
 );

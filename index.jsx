@@ -9,7 +9,7 @@ import polygonStore from "./stores/polygon.store";
 import FeatureLeaflet from "./features";
 
 const Leaflet = memo(function LeaftletComponent(props) {
-  const [mapRef] = floorPlanStore((e) => [e.mapRef]);
+  const [mapRef, isDownload] = floorPlanStore((e) => [e.mapRef, e.isDownload]);
   const setPolygonColor = polygonStore((e) => e.setStatusColor);
   const setMarkerColor = markerStore((e) => e.setStatusColor);
 
@@ -56,6 +56,7 @@ const Leaflet = memo(function LeaftletComponent(props) {
         ]}
         boundsOptions={{ padding: 0 }}
         center={[51.505, -0.09]}
+        zoomControl={isDownload}
       >
         <TileLayer
           attribution="meow"
