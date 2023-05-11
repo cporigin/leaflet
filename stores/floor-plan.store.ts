@@ -28,7 +28,7 @@ const floorPlanState = {
   selectedSpace: {} as ISelectedSpace,
   flyTo: () => {},
   removeControl: () => {},
-  isDownload: false,
+  isDownload: true,
 };
 
 const floorPlanStore = create(
