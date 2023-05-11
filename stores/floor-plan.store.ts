@@ -28,7 +28,6 @@ const floorPlanState = {
   selectedSpace: {} as ISelectedSpace,
   flyTo: () => {},
   removeControl: () => {},
-  isShowZoomControl: true,
 };
 
 const floorPlanStore = create(
@@ -102,8 +101,6 @@ const floorPlanStore = create(
       setMap: (map: any) => set({ mapControl: map }),
       setFlyTo: (flyTo: any) => set({ flyTo }),
       setRemoveControl: (removeControl: any) => set({ removeControl }),
-      setIsShowZoomControl: (isShowZoomControl: boolean) =>
-        set({ isShowZoomControl }),
     }))
   )
 );

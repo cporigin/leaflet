@@ -56,7 +56,6 @@ const Leaflet = memo(function LeaftletComponent(props) {
         ]}
         boundsOptions={{ padding: 0 }}
         center={[51.505, -0.09]}
-        zoomControl={props?.isShowZoomControl ?? true}
       >
         <TileLayer
           attribution="meow"
