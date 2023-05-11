@@ -40,10 +40,10 @@ export default function CustomPolygon(props) {
 
   useEffect(() => {
     if (polygonRef.current && props?.selectedLayer) {
-      polygonRef.current.editing.enable();
+      polygonRef.current?.editing?.enable?.();
     }
     if (mode !== "edit") {
-      polygonRef.current.editing.disable();
+      polygonRef.current?.editing?.disable?.();
     }
   }, [props?.selectedLayer, mode]);
 
