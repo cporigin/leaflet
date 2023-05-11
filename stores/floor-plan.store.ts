@@ -1,3 +1,4 @@
+// @ts-ignore
 import { remove } from "lodash";
 import { createRef } from "react";
 import { create } from "zustand";
