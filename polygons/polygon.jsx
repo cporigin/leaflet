@@ -9,8 +9,8 @@ import CustomEditControl from "../edit-control";
 import { JSXMarker } from "../markers/jsx-marker";
 import ChildrenMarker from "./marker";
 import floorPlanStore from "../stores/floor-plan.store";
-import ChildrenTooltip from "./tooltip";
 import polygonStore from "../stores/polygon.store";
+import componentStore from "../stores/component.store";
 
 export default function CustomPolygon(props) {
   const { layer, selectedLayer } = props;
@@ -20,6 +20,8 @@ export default function CustomPolygon(props) {
     e.mode === "edit" && selectedLayer,
     e.mode,
   ]);
+
+  const Tooltip = componentStore((e) => e.Tooltip);
 
   const status = props.layer.status ? "error" : "success";
 
@@ -63,14 +65,14 @@ export default function CustomPolygon(props) {
         }
       >
         <Pane style={{ zIndex: 105 }}>
-          <ChildrenTooltip {...childrenProps} />
+          <Tooltip {...childrenProps} />
         </Pane>
         {!disabledMarker && (
           <Pane style={{ zIndex: 100 }}>
             <ChildrenMarker {...childrenProps}>
               <Pane style={{ zIndex: 105 }}>
                 {/* fix cant set eventsPointer: none */}
-                <ChildrenTooltip {...childrenProps} />
+                <Tooltip {...childrenProps} />
               </Pane>
             </ChildrenMarker>
             <CustomLabel {...childrenProps} />

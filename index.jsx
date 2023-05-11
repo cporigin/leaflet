@@ -5,6 +5,7 @@ import { memo, useEffect } from "react";
 import floorPlanStore from "./stores/floor-plan.store";
 import markerStore from "./stores/marker.store";
 import polygonStore from "./stores/polygon.store";
+import componentStore from "./stores/component.store";
 
 import FeatureLeaflet from "./features";
 
@@ -12,10 +13,12 @@ const Leaflet = memo(function LeaftletComponent(props) {
   const mapRef = floorPlanStore((e) => e.mapRef);
   const setPolygonColor = polygonStore((e) => e.setStatusColor);
   const setMarkerColor = markerStore((e) => e.setStatusColor);
+  const setTooltip = componentStore((e) => e.setTooltip);
 
   useEffect(() => {
     setPolygonColor(props.polygonColor);
     setMarkerColor(props.markerColor);
+    props.components.Tooltip && setTooltip(props.components.tooltip);
   }, [props]);
 
   return (
