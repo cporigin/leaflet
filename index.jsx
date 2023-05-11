@@ -18,7 +18,7 @@ const Leaflet = memo(function LeaftletComponent(props) {
   useEffect(() => {
     setPolygonColor(props.polygonColor);
     setMarkerColor(props.markerColor);
-    props.components.Tooltip && setTooltip(props.components.tooltip);
+    props.components?.Tooltip && setTooltip(props.components?.Tooltip);
   }, [props]);
 
   return (
