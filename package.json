@@ -1,6 +1,6 @@
 {
   "name": "@cporigin/leaflet",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "index.jsx",
   "dependencies": {
     "@mui/icons-material": "5.11.11",
@@ -20,6 +20,7 @@
     "zustand": "4.3.6"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.194",
     "eslint": "8.23.1",
     "eslint-config-next": "12.3.0",
     "eslint-config-prettier": "^8.5.0",
