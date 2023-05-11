@@ -10,7 +10,7 @@ const componentState = {
 const componentStore = create(
   immer(
     combine(componentState, (set, get) => ({
-      setTooltip: (Tooltip: any) => set({ Tooltip }),
+      setTooltip: (Tooltip) => set({ Tooltip }),
     }))
   )
 );
