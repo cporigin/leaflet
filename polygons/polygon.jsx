@@ -23,8 +23,6 @@ export default function CustomPolygon(props) {
 
   const Tooltip = componentStore((e) => e.Tooltip);
 
-  const status = props.layer.status ? "error" : "success";
-
   const center = useMemo(
     () =>
       layer.position_data.length === 4
@@ -33,10 +31,7 @@ export default function CustomPolygon(props) {
     [layer.positions]
   );
 
-  const childrenProps = useMemo(
-    () => ({ ...layer, center, status }),
-    [center, status]
-  );
+  const childrenProps = useMemo(() => ({ ...layer, center }), [center, status]);
 
   useEffect(() => {
     if (polygonRef.current && props?.selectedLayer) {
