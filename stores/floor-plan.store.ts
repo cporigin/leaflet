@@ -14,9 +14,13 @@ interface IPosition {
   lng?: number;
 }
 
+interface IPositions {
+  positions?: IPosition[];
+}
+
 interface ITempPayload {
   type: "marker" | "polygon";
-  positions?: IPosition[];
+  position_data: IPositions;
 }
 
 const floorPlanState = {
