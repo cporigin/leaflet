@@ -25,8 +25,8 @@ const Markers = memo(function MarkersComponent() {
             <JSXMarker
               attribution={marker.id}
               position={[
-                marker.position_data?.[0].positions?.[0].lat,
-                marker.position_data?.[0].positions?.[0].lng,
+                marker.position_data?.[0].lat,
+                marker.position_data?.[0].lng,
               ]}
               iconOptions={{
                 className: "jsx-marker",

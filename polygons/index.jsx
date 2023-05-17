@@ -4,7 +4,7 @@ import Polygon from "./polygon";
 
 export default function Polygons() {
   const [tempMarkers, selectedSpace] = floorPlanStore((e) => [
-    filter(e.tempLayers, (el) => el?.position_data),
+    filter(e.tempLayers, (el) => el.position_data),
     e.selectedSpace,
   ]);
 
