@@ -21,7 +21,7 @@ export default function CustomPolygon(props) {
     e.mode,
   ]);
 
-  const Tooltip = componentStore((e) => e.Tooltip);
+  const [Tooltip, Label] = componentStore((e) => [e.Tooltip, e.Label]);
 
   const status = props.layer.status ? "error" : "success";
 
@@ -75,44 +75,10 @@ export default function CustomPolygon(props) {
                 <Tooltip {...childrenProps} />
               </Pane>
             </ChildrenMarker>
-            <CustomLabel {...childrenProps} />
+            <Label {...childrenProps} />
           </Pane>
         )}
       </Polygon>
     </CustomEditControl>
-  );
-}
-
-function CustomLabel(props) {
-  return (
-    <JSXMarker
-      position={props.center}
-      className="jsx-marker"
-      attribution="polygon-jsx-marker"
-      iconOptions={{
-        className: "polygon-jsx-marker",
-        iconSize: [100, 100],
-        iconAnchor: [50, 50],
-      }}
-    >
-      <Grid
-        container
-        justifyContent="center"
-        alignContent="center"
-        height="inherit"
-        mt={4}
-        // mt={8}
-        sx={{
-          pointerEvents: "none",
-        }}
-      >
-        {/* <Chip size="small" color={props.status} label={props.code} /> */}
-        <Typography fontWeight={600}>
-          {props.code}
-          {/* <br />
-          {faker.company.companyName()} */}
-        </Typography>
-      </Grid>
-    </JSXMarker>
   );
 }

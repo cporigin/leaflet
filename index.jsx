@@ -13,12 +13,12 @@ const Leaflet = memo(function LeaftletComponent(props) {
   const mapRef = floorPlanStore((e) => e.mapRef);
   const setPolygonColor = polygonStore((e) => e.setStatusColor);
   const setMarkerColor = markerStore((e) => e.setStatusColor);
-  const setTooltip = componentStore((e) => e.setTooltip);
+  const setComponents = componentStore((e) => e.setComponents);
 
   useEffect(() => {
     setPolygonColor(props.polygonColor);
     setMarkerColor(props.markerColor);
-    props.components?.Tooltip && setTooltip(props.components?.Tooltip);
+    setComponents(props.components);
   }, [props]);
 
   return (
