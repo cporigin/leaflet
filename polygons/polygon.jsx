@@ -47,6 +47,8 @@ export default function CustomPolygon(props) {
     }
   }, [props?.selectedLayer, mode]);
 
+  console.log("layer", layer);
+
   return (
     <CustomEditControl disabled={!selectedLayer}>
       <Polygon
