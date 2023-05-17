@@ -1,6 +1,6 @@
 {
   "name": "@cporigin/leaflet",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "main": "index.jsx",
   "dependencies": {
     "@mui/icons-material": "5.11.11",
