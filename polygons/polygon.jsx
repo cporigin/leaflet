@@ -59,11 +59,8 @@ export default function CustomPolygon(props) {
           fillOpacity: 0.85,
         }}
         positions={
-          layer.position_data.positions?.[0]
-            ? layer.position_data.positions?.map((position) => [
-                position.lat,
-                position.lng,
-              ])
+          layer.positions?.[0]
+            ? layer.positions?.map((position) => [position.lat, position.lng])
             : []
         }
       >

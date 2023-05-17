@@ -20,7 +20,7 @@ interface IPositions {
 
 interface ITempPayload {
   type: "marker" | "polygon";
-  position_data: IPositions;
+  position_data: IPositions[];
 }
 
 const floorPlanState = {

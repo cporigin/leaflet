@@ -38,7 +38,7 @@ export default function CustomEditControl(props) {
       const { _leaflet_id } = layer;
       const newLayer = {
         type,
-        position_data: { positions: layer.getLatLngs()[0] },
+        position_data: [{ positions: layer.getLatLngs()[0] }],
       };
 
       addTempLayer(newLayer);
@@ -52,11 +52,12 @@ export default function CustomEditControl(props) {
     if (type === "marker") {
       const { lat = null, lng = null } = { ...layer?._latlng };
 
-      addTempLayer({ type, position_data: { positions: [{ lat, lng }] } });
+      addTempLayer({ type, position_data: [{ positions: [{ lat, lng }] }] });
       layer.remove(layer._leaflet_id);
     }
   }, []);
 
+  console.log("tempLayers", tempLayers);
   const onEditVertex = useCallback((e) => {
     const { poly } = e;
     const result = tempLayers.map((tempLayer) => {
