@@ -27,9 +27,9 @@ export default function CustomPolygon(props) {
 
   const center = useMemo(
     () =>
-      layer.positions.length === 4
-        ? calculateCenterOfPositions(layer.positions)
-        : calculatePolybelOfPositions(layer.positions),
+      layer.position_data.length === 4
+        ? calculateCenterOfPositions(layer.position_data)
+        : calculatePolybelOfPositions(layer.position_data),
     [layer.positions]
   );
 
@@ -59,8 +59,11 @@ export default function CustomPolygon(props) {
           fillOpacity: 0.85,
         }}
         positions={
-          layer.positions?.[0]
-            ? layer.positions?.map((position) => [position.lat, position.lng])
+          layer.position_data?.[0]
+            ? layer.position_data?.map((position) => [
+                position.lat,
+                position.lng,
+              ])
             : []
         }
       >

@@ -36,7 +36,7 @@ export default function CustomEditControl(props) {
     // multiple draw logic
     if (type === "polygon") {
       const { _leaflet_id } = layer;
-      const newLayer = { type, positions: layer.getLatLngs()[0] };
+      const newLayer = { type, position_data: layer.getLatLngs()[0] };
 
       addTempLayer(newLayer);
       e.target?._layers?.[_leaflet_id]?.remove();
@@ -49,7 +49,7 @@ export default function CustomEditControl(props) {
     if (type === "marker") {
       const { lat = null, lng = null } = { ...layer?._latlng };
 
-      addTempLayer({ type, positions: [{ lat, lng }] });
+      addTempLayer({ type, position_data: [{ lat, lng }] });
       layer.remove(layer._leaflet_id);
     }
   }, []);
@@ -58,7 +58,7 @@ export default function CustomEditControl(props) {
     const { poly } = e;
     const result = tempLayers.map((tempLayer) => {
       if (tempLayer?.id === poly.options?.attribution) {
-        return { ...tempLayer, positions: poly.editing.latlngs[0][0] };
+        return { ...tempLayer, position_data: poly.editing.latlngs[0][0] };
       }
       return tempLayer;
     });
