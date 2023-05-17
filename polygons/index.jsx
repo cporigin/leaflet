@@ -3,21 +3,19 @@ import floorPlanStore from "../stores/floor-plan.store";
 import Polygon from "./polygon";
 
 export default function Polygons() {
-  const [tempLayers, selectedSpace] = floorPlanStore((e) => [
-    e.tempLayers,
+  const [tempMarkers, selectedSpace] = floorPlanStore((e) => [
+    filter(e.tempLayers, (el) => el?.position_data),
     e.selectedSpace,
   ]);
 
-  if (isEmpty(tempLayers)) {
+  if (isEmpty(tempMarkers)) {
     return <></>;
   }
 
   return (
     <>
-      {map(tempLayers, (e, index) => (
-        <div key={index}>
-          <Polygon layer={e} selectedLayer={e.id === selectedSpace.id} />
-        </div>
+      {map(tempMarkers, (e, index) => (
+        <Polygon layer={e} selectedLayer={e.id === selectedSpace.id} />
       ))}
     </>
   );
