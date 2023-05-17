@@ -27,10 +27,10 @@ export default function CustomPolygon(props) {
 
   const center = useMemo(
     () =>
-      layer.position_data.positions.length === 4
+      layer.positions.length === 4
         ? calculateCenterOfPositions(layer.positions)
         : calculatePolybelOfPositions(layer.positions),
-    [layer.position_data.positions]
+    [layer.positions]
   );
 
   const childrenProps = useMemo(
