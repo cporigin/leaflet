@@ -24,7 +24,10 @@ const Markers = memo(function MarkersComponent() {
           <CustomEditControl key={key} disabled={!selectedLayer}>
             <JSXMarker
               attribution={marker.id}
-              position={[marker.positions?.[0].lat, marker.positions?.[0].lng]}
+              position={[
+                marker.position_data?.[0].positions?.[0].lat,
+                marker.position_data?.[0].positions?.[0].lng,
+              ]}
               iconOptions={{
                 className: "jsx-marker",
                 iconSize: [100, 100],

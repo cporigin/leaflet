@@ -3,7 +3,7 @@ import { isEmpty } from "lodash";
 import { CircleMarker } from "react-leaflet";
 
 export default function ChildrenMarker(props) {
-  if (isEmpty(props.positions)) {
+  if (isEmpty(props.position_data)) {
     return <></>;
   }
 
