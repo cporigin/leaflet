@@ -3,18 +3,18 @@ import floorPlanStore from "../stores/floor-plan.store";
 import Polygon from "./polygon";
 
 export default function Polygons() {
-  const [tempMarkers, selectedSpace] = floorPlanStore((e) => [
-    filter(e.tempLayers, { type: "polygon" }),
+  const [tempLayers, selectedSpace] = floorPlanStore((e) => [
+    e.tempLayers,
     e.selectedSpace,
   ]);
 
-  if (isEmpty(tempMarkers)) {
+  if (isEmpty(tempLayers)) {
     return <></>;
   }
 
   return (
     <>
-      {map(tempMarkers, (e, index) => (
+      {map(tempLayers, (e, index) => (
         <Polygon layer={e} selectedLayer={e.id === selectedSpace.id} />
       ))}
     </>
