@@ -27,9 +27,10 @@ export default function CustomPolygon(props) {
 
   const center = useMemo(
     () =>
-      layer.position_data?.[0] && layer.position_data[0].positions.length === 4
-        ? calculateCenterOfPositions(layer.position_data[0].positions)
-        : calculatePolybelOfPositions(layer.position_data[0].positions),
+      layer.position_data?.[0] &&
+      layer.position_data?.[0].positions.length === 4
+        ? calculateCenterOfPositions(layer.position_data?.[0].positions)
+        : calculatePolybelOfPositions(layer.position_data?.[0].positions),
     [layer.position_data]
   );
 
@@ -46,8 +47,6 @@ export default function CustomPolygon(props) {
       polygonRef.current?.editing?.disable?.();
     }
   }, [props?.selectedLayer, mode]);
-
-  console.log("layer", layer);
 
   return (
     <CustomEditControl disabled={!selectedLayer}>

@@ -15,7 +15,9 @@ export default function Polygons() {
   return (
     <>
       {map(tempLayers, (e, index) => (
-        <Polygon layer={e} selectedLayer={e.id === selectedSpace.id} />
+        <div key={index}>
+          <Polygon layer={e} selectedLayer={e.id === selectedSpace.id} />
+        </div>
       ))}
     </>
   );
