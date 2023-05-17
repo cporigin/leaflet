@@ -62,7 +62,10 @@ export default function CustomEditControl(props) {
     const { poly } = e;
     const result = tempLayers.map((tempLayer) => {
       if (tempLayer?.id === poly.options?.attribution) {
-        return { ...tempLayer, positions: poly.editing.latlngs[0][0] };
+        return {
+          ...tempLayer,
+          position_data: [{ positions: poly.editing.latlngs[0][0] }],
+        };
       }
       return tempLayer;
     });
