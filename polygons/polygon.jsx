@@ -31,7 +31,7 @@ export default function CustomPolygon(props) {
     [layer.positions]
   );
 
-  const childrenProps = useMemo(() => ({ ...layer, center }), [center, status]);
+  const childrenProps = useMemo(() => ({ ...layer, center }), [center]);
 
   useEffect(() => {
     if (polygonRef.current && props?.selectedLayer) {
