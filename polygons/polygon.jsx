@@ -22,8 +22,7 @@ export default function CustomPolygon(props) {
   ]);
 
   const Tooltip = componentStore((e) => e.Tooltip);
-  console.log("props.layer.status", props.layer.status);
-  const status = props.layer.status ? "error" : "success";
+  const status = props.layer.status;
 
   const center = useMemo(
     () =>

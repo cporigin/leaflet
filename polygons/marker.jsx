@@ -1,6 +1,7 @@
 import { useTheme } from "@mui/material/styles";
 import { isEmpty } from "lodash";
 import { CircleMarker } from "react-leaflet";
+import { SPACE_STATUS } from "../constants/space";
 
 export default function ChildrenMarker(props) {
   if (isEmpty(props.position_data)) {
@@ -14,7 +15,7 @@ export default function ChildrenMarker(props) {
       center={props.center}
       pathOptions={{
         fillOpacity: 1,
-        color: `${theme.palette[props.status ?? "error"].main}` ?? "#1F8A70",
+        color: SPACE_STATUS[props.status].color,
         pointerEvents: "none",
       }}
       radius={10}
