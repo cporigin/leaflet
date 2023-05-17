@@ -57,7 +57,6 @@ export default function CustomEditControl(props) {
     }
   }, []);
 
-  console.log("tempLayers", tempLayers);
   const onEditVertex = useCallback((e) => {
     const { poly } = e;
     const result = tempLayers.map((tempLayer) => {
