@@ -78,7 +78,9 @@ function InitMapStore() {
   const setMap = floorPlanStore((e) => e.setMap);
 
   useEffect(() => {
-    setMap(map);
+    if (map) {
+      setMap(map);
+    }
   }, [map]);
 
   return <></>;
