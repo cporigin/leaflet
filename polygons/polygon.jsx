@@ -28,7 +28,7 @@ export default function CustomPolygon(props) {
     () =>
       layer.position_data.length === 4
         ? calculateCenterOfPositions(layer.position_data)
-        : calculatePolybelOfPositions(layer.position_data),
+        : calculateCenterOfPositions(layer.position_data),
     [layer.positions]
   );
 
