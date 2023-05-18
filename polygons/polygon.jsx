@@ -26,9 +26,9 @@ export default function CustomPolygon(props) {
 
   const center = useMemo(
     () =>
-      layer.position_data.length === 4
+      layer.position_data?.[0] && layer.position_data.length === 4
         ? calculateCenterOfPositions(layer.position_data)
-        : calculateCenterOfPositions(layer.position_data),
+        : calculatePolybelOfPositions(layer.position_data),
     [layer.position_data]
   );
 
