@@ -19,14 +19,7 @@ export function calculateCenterOfPositions(positions) {
 }
 
 export function calculatePolybelOfPositions(positions) {
-  const newPositions = polylabel(
-    positions.map((e) => [e.lat, e.lng]),
-    10
-  );
-
-  if (isNil(newPositions?.[0])) {
-    return { lat: 0, lng: 0 };
-  }
+  const newPositions = polylabel([positions.map((e) => [e.lat, e.lng])], 10);
 
   return newPositions;
 }
