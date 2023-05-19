@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
 
 import { Box } from "@mui/material";
 import { memo, useEffect } from "react";
@@ -75,7 +75,14 @@ const Leaflet = memo(function LeaftletComponent(props) {
 function InitMapStore() {
   const map = useMap();
 
-  const setMap = floorPlanStore((e) => e.setMap);
+  const [setMap, setZoomAmpified] = floorPlanStore((e) => [
+    e.setMap,
+    setZoomAmpified,
+  ]);
+
+  const mapEvents = useMapEvents({
+    zoomend: () => setZoomAmpified(mapEvents.getZoom()),
+  });
 
   useEffect(() => {
     if (map) {
