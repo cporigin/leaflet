@@ -75,13 +75,13 @@ const Leaflet = memo(function LeaftletComponent(props) {
 function InitMapStore() {
   const map = useMap();
 
-  const [setMap, setZoomAmpified] = floorPlanStore((e) => [
+  const [setMap, setZoomAmplified] = floorPlanStore((e) => [
     e.setMap,
-    setZoomAmpified,
+    setZoomAmplified,
   ]);
 
   const mapEvents = useMapEvents({
-    zoomend: () => setZoomAmpified(mapEvents.getZoom()),
+    zoomend: () => setZoomAmplified(mapEvents.getZoom()),
   });
 
   useEffect(() => {

@@ -102,8 +102,8 @@ const floorPlanStore = create(
         set((e) => ({ mode: "default", layers: [...e.tempLayers] })),
       resetTempLayers: () =>
         set((e) => ({ mode: "default", tempLayers: e.layers })),
-      setZoomAmpified: (zoomAmpified: number) =>
-        set({ zoomAmplified: zoomAmpified / 2 }),
+      setZoomAmplified: (zoomAmplified: number) =>
+        set({ zoomAmplified: zoomAmplified / 2 }),
       setSelectedSpace: (selectedSpace: any) => set({ selectedSpace }),
       // cosmetic
       setMap: (map: any) => set({ mapControl: map }),
