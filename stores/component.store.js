@@ -1,12 +1,14 @@
 import { create } from "zustand";
 import { combine } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
-import ChildrenTooltip from "../common/tooltip";
+import Tooltip from "../common/tooltip";
 import Label from "../common/tooltip";
+import PolygonMarker from "../polygons/marker";
 
 const componentState = {
   Label,
-  Tooltip: ChildrenTooltip,
+  Tooltip,
+  PolygonMarker,
 };
 
 const componentStore = create(
@@ -14,6 +16,7 @@ const componentStore = create(
     combine(componentState, (set, get) => ({
       setComponents: (components) => set({ ...components }),
       setTooltip: (Tooltip) => set({ Tooltip }),
+      setPolygonMarker: (PolygonMarker) => set({ PolygonMarker }),
     }))
   )
 );

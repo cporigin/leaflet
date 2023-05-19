@@ -1,16 +1,13 @@
-import { Grid, Typography } from "@mui/material";
 import { useEffect, useMemo, useRef } from "react";
 import { Pane, Polygon } from "react-leaflet";
+import CustomEditControl from "../edit-control";
+import componentStore from "../stores/component.store";
+import floorPlanStore from "../stores/floor-plan.store";
+import polygonStore from "../stores/polygon.store";
 import {
   calculateCenterOfPositions,
   calculatePolybelOfPositions,
 } from "../utils/leaflet";
-import CustomEditControl from "../edit-control";
-import { JSXMarker } from "../markers/jsx-marker";
-import ChildrenMarker from "./marker";
-import floorPlanStore from "../stores/floor-plan.store";
-import polygonStore from "../stores/polygon.store";
-import componentStore from "../stores/component.store";
 
 export default function CustomPolygon(props) {
   const { layer, selectedLayer } = props;
@@ -21,7 +18,11 @@ export default function CustomPolygon(props) {
     e.mode,
   ]);
 
-  const [Tooltip, Label] = componentStore((e) => [e.Tooltip, e.Label]);
+  const [Tooltip, Label, PolygonMarker] = componentStore((e) => [
+    e.Tooltip,
+    e.Label,
+    e.PolygonMarker,
+  ]);
   const status = props.layer.status;
 
   const center = useMemo(
@@ -71,12 +72,12 @@ export default function CustomPolygon(props) {
         </Pane>
         {!disabledMarker && (
           <Pane style={{ zIndex: 100 }}>
-            <ChildrenMarker {...childrenProps}>
+            <PolygonMarker {...childrenProps}>
               <Pane style={{ zIndex: 105 }}>
                 {/* fix cant set eventsPointer: none */}
                 <Tooltip {...childrenProps} />
               </Pane>
-            </ChildrenMarker>
+            </PolygonMarker>
             <Label {...childrenProps} />
           </Pane>
         )}
