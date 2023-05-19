@@ -19,7 +19,7 @@ export default function CustomPolygon(props) {
   ]);
 
   const [Tooltip, Label, PolygonMarker, polygonHandleClick] = componentStore(
-    (e) => [e.Tooltip, e.Label, e.PolygonMarker]
+    (e) => [e.Tooltip, e.Label, e.PolygonMarker, e.polygonHandleClick]
   );
   const status = props.layer.status;
 
