@@ -77,7 +77,7 @@ function InitMapStore() {
 
   const [setMap, setZoomAmplified] = floorPlanStore((e) => [
     e.setMap,
-    setZoomAmplified,
+    e.setZoomAmplified,
   ]);
 
   const mapEvents = useMapEvents({
