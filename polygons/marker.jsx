@@ -18,6 +18,7 @@ export default function ChildrenMarker(props) {
         pointerEvents: "none",
       }}
       radius={10}
+      eventHandlers={props.eventHandlers}
     >
       {props.children}
     </CircleMarker>

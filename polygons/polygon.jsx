@@ -73,7 +73,12 @@ export default function CustomPolygon(props) {
         </Pane>
         {!disabledMarker && (
           <Pane style={{ zIndex: 100 }}>
-            <PolygonMarker {...childrenProps}>
+            <PolygonMarker
+              eventHandlers={{
+                click: () => polygonHandleClick(layer.id),
+              }}
+              {...childrenProps}
+            >
               <Pane style={{ zIndex: 105 }}>
                 {/* fix cant set eventsPointer: none */}
                 <Tooltip {...childrenProps} />
