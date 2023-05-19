@@ -88,6 +88,11 @@ function InitMapStore() {
     if (map) {
       setMap(map);
     }
+
+    return () => {
+      console.log("unmount");
+      setZoomAmplified(1);
+    };
   }, [map]);
 
   return <></>;
