@@ -18,11 +18,9 @@ export default function CustomPolygon(props) {
     e.mode,
   ]);
 
-  const [Tooltip, Label, PolygonMarker] = componentStore((e) => [
-    e.Tooltip,
-    e.Label,
-    e.PolygonMarker,
-  ]);
+  const [Tooltip, Label, PolygonMarker, polygonHandleClick] = componentStore(
+    (e) => [e.Tooltip, e.Label, e.PolygonMarker]
+  );
   const status = props.layer.status;
 
   const center = useMemo(
@@ -57,6 +55,9 @@ export default function CustomPolygon(props) {
         fillColor={statusColor?.[props.layer.category]?.color}
         pathOptions={{
           fillOpacity: 0.85,
+        }}
+        eventHandlers={{
+          click: () => polygonHandleClick(layer.id),
         }}
         positions={
           layer.position_data?.[0]

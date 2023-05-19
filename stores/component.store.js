@@ -9,14 +9,13 @@ const componentState = {
   Label,
   Tooltip,
   PolygonMarker,
+  polygonHandleClick: () => {},
 };
 
 const componentStore = create(
   immer(
     combine(componentState, (set, get) => ({
       setComponents: (components) => set({ ...components }),
-      setTooltip: (Tooltip) => set({ Tooltip }),
-      setPolygonMarker: (PolygonMarker) => set({ PolygonMarker }),
     }))
   )
 );
