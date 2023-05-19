@@ -81,9 +81,7 @@ function InitMapStore() {
   ]);
 
   const mapEvents = useMapEvents({
-    zoomend: () =>
-      console.log("mapEvents.getZoom()", mapEvents.getZoom()) ||
-      setZoomAmplified(mapEvents.getZoom()),
+    zoomend: () => setZoomAmplified(mapEvents.getZoom()),
   });
 
   useEffect(() => {
