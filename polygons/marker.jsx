@@ -15,7 +15,6 @@ export default function ChildrenMarker(props) {
       pathOptions={{
         fillOpacity: 1,
         color: statusColor?.[props.status]?.color,
-        pointerEvents: "none",
       }}
       radius={10}
       eventHandlers={props.eventHandlers}
