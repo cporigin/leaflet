@@ -10,7 +10,6 @@ import componentStore from "./stores/component.store";
 import FeatureLeaflet from "./features";
 
 const Leaflet = memo(function LeaftletComponent(props) {
-  const mapRef = floorPlanStore((e) => e.mapRef);
   const setPolygonColor = polygonStore((e) => e.setStatusColor);
   const setMarkerColor = markerStore((e) => e.setStatusColor);
   const setComponents = componentStore((e) => e.setComponents);
@@ -49,7 +48,6 @@ const Leaflet = memo(function LeaftletComponent(props) {
         component={MapContainer}
         zoom={1}
         maxZoom={5}
-        ref={mapRef}
         sx={{
           bgcolor: "white",
         }}
