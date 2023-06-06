@@ -30,7 +30,6 @@ const floorPlanState = {
   tempLayers: [] as any[],
   zoomAmplified: 0.5,
   mapControl: {},
-  mapRef: createRef(),
   selectedSpace: {} as ISelectedSpace,
   flyTo: () => {},
   removeControl: () => {},
@@ -97,7 +96,7 @@ const floorPlanStore = create(
         set((draft) => {
           draft.tempLayers = remove(draft.tempLayers, ids);
         }),
-      clearLayers: () => set({ layers: [] }),
+      clearLayers: () => set({ layers: [], tempLayers: [] }),
       saveTempLayers: () =>
         set((e) => ({ mode: "default", layers: [...e.tempLayers] })),
       resetTempLayers: () =>
