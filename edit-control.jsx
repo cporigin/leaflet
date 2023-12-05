@@ -87,8 +87,8 @@ export default function CustomEditControl(props) {
       polyline: false,
       circlemarker: false,
       rectangle: false,
-      marker: false,
-      polygon: isAdding,
+      marker: isAdding,
+      polygon: false,
     },
     edit: {
       featureGroup: false,
