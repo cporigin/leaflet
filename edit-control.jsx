@@ -15,6 +15,7 @@ export default function CustomEditControl(props) {
     isAdding,
     tempLayers,
     setTempLayers,
+    resetTempLayers,
   ] = floorPlanStore((e) => [
     e.mode,
     e.addTempLayer,
@@ -22,6 +23,7 @@ export default function CustomEditControl(props) {
     e.mode === "add",
     e.tempLayers,
     e.setTempLayers,
+    e.resetTempLayers,
   ]);
 
   const drawControlRef = useRef();
@@ -49,6 +51,7 @@ export default function CustomEditControl(props) {
     if (type === "marker") {
       const { lat = null, lng = null } = { ...layer?._latlng };
 
+      resetTempLayers({ silent: true });
       addTempLayer({ type, position_data: [{ lat, lng }] });
       layer.remove(layer._leaflet_id);
     }
