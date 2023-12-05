@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import { memo, useEffect } from "react";
 import { JSXMarker } from "./markers/jsx-marker";
 import { floorPlanStore, markerStore, polygonStore } from "./stores";
+import componentStore from "./stores/component.store";
 
 import FeatureLeaflet from "./features";
 
