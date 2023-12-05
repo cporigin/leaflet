@@ -104,7 +104,7 @@ export default function CustomEditControl(props) {
   useEffect(() => {
     if (mode === "add") {
       if (drawControlRef.current) {
-        drawControlRef.current._toolbars.draw._modes.marker.handler.enable();
+        // drawControlRef.current._toolbars.draw._modes.marker.handler.enable();
       }
     }
   }, [mode]);
