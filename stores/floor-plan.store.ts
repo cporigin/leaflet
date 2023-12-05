@@ -98,13 +98,8 @@ const floorPlanStore = create(
       clearLayers: () => set({ layers: [], tempLayers: [] }),
       saveTempLayers: () =>
         set((e) => ({ mode: "default", layers: [...e.tempLayers] })),
-      resetTempLayers: ({ silent = false }: { silent: boolean }) =>
-        set((draft) => {
-          if (silent) {
-            draft["mode"] = "default";
-          }
-          draft["tempLayers"] = draft["layers"];
-        }),
+      resetTempLayers: () =>
+        set((e) => ({ mode: "default", tempLayers: e.layers })),
       setZoomAmplified: (zoomAmplified: number) =>
         set({ zoomAmplified: zoomAmplified / 2 }),
       setSelectedSpace: (selectedSpace: any) => set({ selectedSpace }),
