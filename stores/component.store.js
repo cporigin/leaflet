@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { combine } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
-import Tooltip from "../common/tooltip";
-import Label from "../common/tooltip";
+import { default as Label, default as Tooltip } from "../common/tooltip";
+import CicleMarker from "../markers/circle";
 import PolygonMarker from "../polygons/marker";
 
 const componentState = {
@@ -10,6 +10,8 @@ const componentState = {
   Tooltip,
   PolygonMarker,
   polygonHandleClick: () => {},
+  CicleMarker,
+  circleMarkerHandleClick: () => {},
 };
 
 const componentStore = create(
