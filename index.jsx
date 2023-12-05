@@ -2,10 +2,8 @@ import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
 
 import { Box } from "@mui/material";
 import { memo, useEffect } from "react";
-import floorPlanStore from "./stores/floor-plan.store";
-import markerStore from "./stores/marker.store";
-import polygonStore from "./stores/polygon.store";
-import componentStore from "./stores/component.store";
+import { JSXMarker } from "./markers/jsx-marker";
+import { floorPlanStore, markerStore, polygonStore } from "./stores";
 
 import FeatureLeaflet from "./features";
 
@@ -96,6 +94,6 @@ function InitMapStore() {
   return <></>;
 }
 
-export { floorPlanStore, markerStore, polygonStore };
+export { JSXMarker, floorPlanStore, markerStore, polygonStore };
 
 export default Leaflet;

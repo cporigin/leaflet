@@ -1,8 +1,7 @@
 import { isEmpty } from "lodash";
-import floorPlanStore from "./stores/floor-plan.store";
 import CustomEditControl from "./edit-control";
 import Markers from "./markers";
-import Polygons from "./polygons";
+import floorPlanStore from "./stores/floor-plan.store";
 
 export default function FeatureLeaflet() {
   const [tempMarkers, selectedLayerNotEmpty, isNotAdding] = floorPlanStore(
@@ -17,7 +16,6 @@ export default function FeatureLeaflet() {
     // if mode === 'add' will enable and must
     <CustomEditControl disabled={isNotAdding || selectedLayerNotEmpty}>
       <Markers />
-      <Polygons />
     </CustomEditControl>
   );
 }
