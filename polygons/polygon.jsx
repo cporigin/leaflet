@@ -33,7 +33,7 @@ export default function CustomPolygon(props) {
 
   const childrenProps = useMemo(
     () => ({ ...layer, center, status }),
-    [center, status]
+    [layer, center, status]
   );
 
   useEffect(() => {
