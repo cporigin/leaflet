@@ -33,7 +33,7 @@ export default function CustomPolygon(props) {
 
   const childrenProps = useMemo(
     () => ({ ...layer, center, status }),
-    [center, status]
+    [layer, center, status]
   );
 
   useEffect(() => {
@@ -49,10 +49,10 @@ export default function CustomPolygon(props) {
     <CustomEditControl disabled={!selectedLayer}>
       <Polygon
         ref={polygonRef}
-        key={layer.id}
+        key={`${layer.id}-${layer?.category ?? ""}`}
         attribution={layer.id}
         color="#2b2b2b"
-        fillColor={statusColor?.[props.layer.category]?.color}
+        fillColor={statusColor?.[layer?.category]?.color}
         pathOptions={{
           fillOpacity: 0.85,
         }}
