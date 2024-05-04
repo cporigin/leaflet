@@ -1,5 +1,5 @@
 import L from "leaflet";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { Marker } from "react-leaflet";
 
@@ -8,32 +8,30 @@ import { Marker } from "react-leaflet";
  */
 export const JSXMarker = React.forwardRef(
   ({ children, iconOptions, ...rest }, refInParent) => {
-    const [ref, setRef] = useState();
+    const [ref, setRef] = useState(null);
+    const [renderedChildren, setRenderedChildren] = useState(null);
 
-    const node = React.useMemo(
-      () => (ref ? ReactDOM.createRoot(ref.getElement()) : null),
-      [ref]
-    );
+    useEffect(() => {
+      if (ref) {
+        const node = ReactDOM.createRoot(ref.getElement());
+        setRenderedChildren(node.render(children));
+      }
+    }, [ref, children]);
 
     return (
       <>
-        {React.useMemo(
-          () => (
-            <Marker
-              {...rest}
-              ref={(r) => {
-                setRef(r);
-                if (refInParent) {
-                  // @ts-expect-error fowardref ts defs are tricky
-                  refInParent.current = r;
-                }
-              }}
-              icon={L.divIcon(iconOptions)}
-            />
-          ),
-          []
-        )}
-        {ref && node.render(children)}
+        <Marker
+          {...rest}
+          ref={(r) => {
+            setRef(r);
+            if (refInParent) {
+              // @ts-expect-error fowardref ts defs are tricky
+              refInParent.current = r;
+            }
+          }}
+          icon={L.divIcon(iconOptions)}
+        />
+        {renderedChildren}
       </>
     );
   }
