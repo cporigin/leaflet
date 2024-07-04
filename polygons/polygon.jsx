@@ -8,19 +8,22 @@ import {
   calculateCenterOfPositions,
   calculatePolybelOfPositions,
 } from "../utils/leaflet";
+import { map } from "lodash";
 
 export default function CustomPolygon(props) {
   const { layer, selectedLayer } = props;
   const polygonRef = useRef();
+
   const statusColor = polygonStore((e) => e.statusColor);
+
   const [disabledMarker, mode] = floorPlanStore((e) => [
     e.mode === "edit" && selectedLayer,
     e.mode,
   ]);
 
-  const [Tooltip, Label, PolygonMarker, polygonHandleClick] = componentStore(
-    (e) => [e.Tooltip, e.Label, e.PolygonMarker, e.polygonHandleClick]
-  );
+  const { Tooltip, Label, PolygonMarker, polygonHandleClick, polygonProps } =
+    componentStore();
+
   const status = props.layer.status;
 
   const center = useMemo(
@@ -59,14 +62,11 @@ export default function CustomPolygon(props) {
         eventHandlers={{
           click: () => polygonHandleClick(layer.id),
         }}
-        positions={
-          layer.position_data?.[0]
-            ? layer.position_data?.map((position) => [
-                position.lat,
-                position.lng,
-              ])
-            : []
-        }
+        positions={map(layer.position_data, (position) => [
+          position.lat,
+          position.lng,
+        ])}
+        {...polygonProps}
       >
         <Pane style={{ zIndex: 105 }}>
           <Tooltip {...childrenProps} />

@@ -9,16 +9,12 @@ import componentStore from "./stores/component.store";
 
 import FeatureLeaflet from "./features";
 
-const Leaflet = memo(function LeaftletComponent(props) {
-  const setPolygonColor = polygonStore((e) => e.setStatusColor);
-  const setMarkerColor = markerStore((e) => e.setStatusColor);
-  const setComponents = componentStore((e) => e.setComponents);
-
+const Leaflet = memo(function Component(props) {
   useEffect(() => {
-    setPolygonColor(props.polygonColor);
-    setMarkerColor(props.markerColor);
-    setComponents(props.components);
-  }, [props]);
+    polygonStore.setState(props.polygonColor);
+    markerStore.setState(props.markerColor);
+    componentStore.setState(props.components);
+  }, [props.polygonColor, props.markerColor, props.components]);
 
   return (
     <Box
