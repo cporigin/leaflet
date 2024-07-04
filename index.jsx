@@ -11,8 +11,8 @@ import FeatureLeaflet from "./features";
 
 const Leaflet = memo(function Component(props) {
   useEffect(() => {
-    polygonStore.setState(props.polygonColor);
-    markerStore.setState(props.markerColor);
+    polygonStore.setState({ statusColor: props.polygonColor });
+    markerStore.setState({ statusColor: props.markerColor });
     componentStore.setState(props.components);
   }, [props.polygonColor, props.markerColor, props.components]);
 

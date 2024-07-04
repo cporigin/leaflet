@@ -1,6 +1,6 @@
 {
   "name": "@cporigin/leaflet",
-  "version": "0.1.6",
+  "version": "0.1.61",
   "main": "index.jsx",
   "dependencies": {
     "@emotion/react": "^11.11.1",
