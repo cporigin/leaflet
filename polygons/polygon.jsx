@@ -66,7 +66,7 @@ export default function CustomPolygon(props) {
           position.lat,
           position.lng,
         ])}
-        {...polygonProps}
+        {...polygonProps({ layer, status, center })}
       >
         <Pane style={{ zIndex: 105 }}>
           <Tooltip {...childrenProps} />

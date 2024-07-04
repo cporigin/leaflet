@@ -11,7 +11,7 @@ export type TComponentStore = {
   Label: FC;
   Tooltip: FC;
   PolygonMarker: FC;
-  polygonProps: Partial<PolygonProps>;
+  polygonProps: (props: any) => any;
   polygonHandleClick: () => void;
   setComponents: (components: TComponentStore) => void;
 };
@@ -21,7 +21,7 @@ const componentStore = create<TComponentStore>()(
     Label,
     Tooltip,
     PolygonMarker,
-    polygonProps: {},
+    polygonProps: (props) => {},
     polygonHandleClick: () => {},
     setComponents: (components) => set({ ...components }),
   }))
