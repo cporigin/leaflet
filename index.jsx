@@ -60,7 +60,7 @@ const Leaflet = memo(function Component(props) {
 					url={`${props.url}/{z}/{x}/{y}.png`}
 				/>
 				<InitMapStore />
-				<FeatureLeaflet layers={props?.layers} />
+				<FeatureLeaflet />
 			</Box>
 		</Box>
 	);
