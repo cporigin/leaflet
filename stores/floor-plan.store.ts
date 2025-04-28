@@ -1,115 +1,149 @@
-// @ts-ignore
 import { remove } from "lodash";
 import { createRef } from "react";
 import { create } from "zustand";
-import { combine } from "zustand/middleware";
-import { immer } from "zustand/middleware/immer";
 
 interface ISelectedSpace {
-	id?: string | number;
+  id?: string | number;
 }
 
 interface IPosition {
-	lat?: number;
-	lng?: number;
+  lat?: number;
+  lng?: number;
 }
 
 interface IPositions {
-	positions?: IPosition[];
+  positions?: IPosition[];
 }
 
 interface ITempPayload {
-	type: "marker" | "polygon";
-	position_data: IPositions[];
+  type: "marker" | "polygon";
+  position_data: IPositions[];
 }
 
-const floorPlanState = {
-	mode: "default",
-	selectedLayer: {},
-	layers: [] as any[],
-	tempLayers: [] as any[],
-	zoomAmplified: 0.5,
-	mapControl: {},
-	selectedSpace: {} as ISelectedSpace,
-	flyTo: () => {},
-	removeControl: () => {},
-};
+interface FloorPlanState {
+  mode: string;
+  selectedLayer: Record<string, any>;
+  layers: any[];
+  tempLayers: any[];
+  zoomAmplified: number;
+  mapControl: Record<string, any>;
+  selectedSpace: ISelectedSpace;
+  flyTo: () => void;
+  removeControl: () => void;
+  setMode: (newMode: string) => void;
+  setSelectedLayer: (selectedLayer: { id: any }) => void;
+  clearSelectedLayer: () => void;
+  setLayers: (layers: any[]) => void;
+  setTempLayers: (tempLayers: any[]) => void;
+  addTempLayer: (payload: ITempPayload) => void;
+  updateTempLayer: (payload: ITempPayload) => void;
+  removeLayer: (id: any) => void;
+  removeTempLayer: (id: any) => void;
+  removeTempLayers: (ids: number[]) => void;
+  clearLayers: () => void;
+  saveTempLayers: () => void;
+  resetTempLayers: () => void;
+  setZoomAmplified: (zoomAmplified: number) => void;
+  setSelectedSpace: (selectedSpace: any) => void;
+  setMap: (map: any) => void;
+  setFlyTo: (flyTo: any) => void;
+  setRemoveControl: (removeControl: any) => void;
+}
 
-const floorPlanStore = create(
-	immer(
-		combine(floorPlanState, (set, get) => ({
-			setMode: (newMode: string) => {
-				const isDeselected = !newMode || newMode === "default";
+const floorPlanStore = create<FloorPlanState>()((set, get) => ({
+  mode: "default",
+  selectedLayer: {},
+  layers: [],
+  tempLayers: [],
+  zoomAmplified: 0.5,
+  mapControl: {},
+  selectedSpace: {},
+  flyTo: () => {},
+  removeControl: () => {},
 
-				set({
-					mode: newMode,
-					...(isDeselected && { selected: {}, selectedSpace: {} }),
-				});
-			},
-			setSelectedLayer: (selectedLayer: { id: any }) =>
-				set((e) => {
-					if (e.selectedSpace.id === selectedLayer.id) {
-						return { selectedSpace: {} };
-					}
-					return { selectedLayer };
-				}),
-			clearSelectedLayer: () => set({ selectedLayer: {} }),
-			setLayers: (layers: never[]) =>
-				set({
-					layers,
-					tempLayers: layers,
-				}),
-			setTempLayers: (tempLayers: any[]) => set({ tempLayers }),
-			addTempLayer: (payload: ITempPayload) =>
-				set((draft) => {
-					const newLayer = {
-						...draft.selectedSpace,
-						...payload,
-					};
+  setMode: (newMode) => {
+    const isDeselected = !newMode || newMode === "default";
+    set({
+      mode: newMode,
+      ...(isDeselected && { selected: {}, selectedSpace: {} }),
+    });
+  },
 
-					draft.tempLayers = [...draft?.layers, newLayer];
-					draft.selectedLayer = newLayer;
-				}),
-			updateTempLayer: (payload: ITempPayload) =>
-				set((e) => {
-					const markerIndex = e.layers.findIndex(
-						(layer: { id: any }) => layer.id === e.selectedSpace.id,
-					);
+  setSelectedLayer: (selectedLayer) =>
+    set((state) => ({
+      selectedLayer:
+        state.selectedSpace.id === selectedLayer.id ? {} : selectedLayer,
+    })),
 
-					e.tempLayers[markerIndex] = {
-						...e.selectedSpace,
-						...payload,
-					};
-				}),
-			removeLayer: (id: any) =>
-				set((draft) => {
-					draft.layers = draft.layers.filter((e: { id: any }) => e.id !== id);
-					draft.tempLayers = draft.layers;
-				}),
-			removeTempLayer: (id: any) =>
-				set((draft) => {
-					draft.tempLayers = draft.tempLayers.filter(
-						(e: { id: any }) => e.id !== id,
-					);
-				}),
-			removeTempLayers: (ids: number[]) =>
-				set((draft) => {
-					draft.tempLayers = remove(draft.tempLayers, ids);
-				}),
-			clearLayers: () => set({ layers: [], tempLayers: [] }),
-			saveTempLayers: () =>
-				set((e) => ({ mode: "default", layers: [...e.tempLayers] })),
-			resetTempLayers: () =>
-				set((e) => ({ mode: "default", tempLayers: e.layers })),
-			setZoomAmplified: (zoomAmplified: number) =>
-				set({ zoomAmplified: zoomAmplified / 2 }),
-			setSelectedSpace: (selectedSpace: any) => set({ selectedSpace }),
-			// cosmetic
-			setMap: (map: any) => set({ mapControl: map }),
-			setFlyTo: (flyTo: any) => set({ flyTo }),
-			setRemoveControl: (removeControl: any) => set({ removeControl }),
-		})),
-	),
-);
+  clearSelectedLayer: () => set({ selectedLayer: {} }),
+
+  setLayers: (layers) =>
+    set({
+      layers,
+      tempLayers: layers,
+    }),
+
+  setTempLayers: (tempLayers) => set({ tempLayers }),
+
+  addTempLayer: (payload) =>
+    set((state) => {
+      const newLayer = {
+        ...state.selectedSpace,
+        ...payload,
+      };
+      return {
+        tempLayers: [...state.layers, newLayer],
+        selectedLayer: newLayer,
+      };
+    }),
+
+  updateTempLayer: (payload) =>
+    set((state) => {
+      const markerIndex = state.layers.findIndex(
+        (layer) => layer.id === state.selectedSpace.id
+      );
+      const tempLayers = [...state.tempLayers];
+      tempLayers[markerIndex] = {
+        ...state.selectedSpace,
+        ...payload,
+      };
+      return { tempLayers };
+    }),
+
+  removeLayer: (id) =>
+    set((state) => ({
+      layers: state.layers.filter((e) => e.id !== id),
+      tempLayers: state.layers.filter((e) => e.id !== id),
+    })),
+
+  removeTempLayer: (id) =>
+    set((state) => ({
+      tempLayers: state.tempLayers.filter((e) => e.id !== id),
+    })),
+
+  removeTempLayers: (ids) =>
+    set((state) => ({
+      tempLayers: remove(state.tempLayers, ids),
+    })),
+
+  clearLayers: () => set({ layers: [], tempLayers: [] }),
+
+  saveTempLayers: () =>
+    set((state) => ({ mode: "default", layers: [...state.tempLayers] })),
+
+  resetTempLayers: () =>
+    set((state) => ({ mode: "default", tempLayers: state.layers })),
+
+  setZoomAmplified: (zoomAmplified) =>
+    set({ zoomAmplified: zoomAmplified / 2 }),
+
+  setSelectedSpace: (selectedSpace) => set({ selectedSpace }),
+
+  setMap: (map) => set({ mapControl: map }),
+
+  setFlyTo: (flyTo) => set({ flyTo }),
+
+  setRemoveControl: (removeControl) => set({ removeControl }),
+}));
 
 export default floorPlanStore;

@@ -1,17 +1,13 @@
 import { create } from 'zustand';
-import { combine } from 'zustand/middleware';
-import { immer } from 'zustand/middleware/immer';
 
-const markerState = {
-  statusColor: {}
-};
+interface MarkerState {
+  statusColor: Record<string, any>;
+  setStatusColor: (statusColor: Record<string, any>) => void;
+}
 
-const markerStore = create(
-  immer(
-    combine(markerState, (set, get) => ({
-      setStatusColor: (statusColor: {}) => set({ statusColor })
-    }))
-  )
-);
+const markerStore = create<MarkerState>()((set) => ({
+  statusColor: {},
+  setStatusColor: (statusColor) => set({ statusColor })
+}));
 
 export default markerStore;

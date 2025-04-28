@@ -1,17 +1,13 @@
 import { create } from 'zustand';
-import { combine } from 'zustand/middleware';
-import { immer } from 'zustand/middleware/immer';
 
-const polygonState = {
-  statusColor: {}
-};
+interface PolygonState {
+  statusColor: Record<string, any>;
+  setStatusColor: (statusColor: Record<string, any>) => void;
+}
 
-const polygonStore = create(
-  immer(
-    combine(polygonState, (set, get) => ({
-      setStatusColor: (statusColor: {}) => set({ statusColor })
-    }))
-  )
-);
+const polygonStore = create<PolygonState>()((set) => ({
+  statusColor: {},
+  setStatusColor: (statusColor) => set({ statusColor })
+}));
 
 export default polygonStore;
