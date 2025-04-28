@@ -1,6 +1,6 @@
 import { remove } from "lodash";
 import { createRef } from "react";
-import { create } from "zustand";
+import { createWithEqualityFn as create } from 'zustand/traditional'
 
 interface ISelectedSpace {
   id?: string | number;

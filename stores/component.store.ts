@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { createWithEqualityFn as create } from 'zustand/traditional'
 import { default as Label, default as Tooltip } from "../common/tooltip";
 import PolygonMarker from "../polygons/marker";
 
