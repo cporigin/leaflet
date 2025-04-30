@@ -1,10 +1,27 @@
+/**
+ * Label component for displaying text on map elements
+ */
+import { FC } from "react";
 import { Grid, Typography } from "@mui/material";
 import { JSXMarker } from "../markers/jsx-marker";
+import { IBaseComponentProps } from "../types/common";
 
-export default function CustomLabel(props) {
+interface LabelProps extends IBaseComponentProps {
+  center: [number, number];
+  code?: string;
+}
+
+/**
+ * A label component for displaying text on map elements
+ * 
+ * @param props - Component props including position and text content
+ * @returns Label component
+ */
+const CustomLabel: FC<LabelProps> = (props) => {
   return (
     <JSXMarker
       position={props.center}
+      // @ts-ignore
       className="jsx-marker"
       attribution="polygon-jsx-marker"
       iconOptions={{
@@ -19,7 +36,6 @@ export default function CustomLabel(props) {
         alignContent="center"
         height="inherit"
         mt={4}
-        // mt={8}
         sx={{
           pointerEvents: "none",
         }}
@@ -28,4 +44,6 @@ export default function CustomLabel(props) {
       </Grid>
     </JSXMarker>
   );
-}
+};
+
+export default CustomLabel;

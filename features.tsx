@@ -1,10 +1,20 @@
+/**
+ * Feature component that manages all map features (markers and polygons)
+ */
+import { FC } from "react";
 import { isEmpty } from "lodash";
 import floorPlanStore from "./stores/floor-plan.store";
 import CustomEditControl from "./edit-control";
 import Markers from "./markers";
 import Polygons from "./polygons";
 
-export default function FeatureLeaflet() {
+/**
+ * Container component for all map features
+ * Controls edit mode and manages the visibility of markers and polygons
+ * 
+ * @returns Component with appropriate edit controls and map features
+ */
+const FeatureLeaflet: FC = () => {
 	const [tempMarkers, selectedLayerNotEmpty, isNotAdding] = floorPlanStore(
 		(e) => [e.tempLayers, !isEmpty(e.selectedLayer), e.mode !== "add"],
 	);
@@ -20,4 +30,6 @@ export default function FeatureLeaflet() {
 			<Polygons />
 		</CustomEditControl>
 	);
-}
+};
+
+export default FeatureLeaflet;

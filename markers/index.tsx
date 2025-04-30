@@ -1,13 +1,20 @@
+/**
+ * Markers component that renders all map markers
+ */
 import { memo } from "react";
 import { filter, isEmpty } from "lodash";
 import CustomMarker from "./marker";
 import { JSXMarker } from "./jsx-marker";
 import CustomEditControl from "../edit-control";
 import floorPlanStore from "../stores/floor-plan.store";
+import { ILayer } from "../types/common";
 
+/**
+ * Component that renders all markers from the temporary layers
+ */
 const Markers = memo(function MarkersComponent() {
   const [tempMarkers, selectedSpace] = floorPlanStore((e) => [
-    filter(e.tempLayers, { type: "marker" }),
+    filter(e.tempLayers, { type: "marker" }) as ILayer[],
     e.selectedSpace,
   ]);
 
@@ -23,10 +30,10 @@ const Markers = memo(function MarkersComponent() {
         return (
           <CustomEditControl key={key} disabled={!selectedLayer}>
             <JSXMarker
-              attribution={marker.id}
+              attribution={String(marker.id)}
               position={[
-                marker.position_data?.[0].lat,
-                marker.position_data?.[0].lng,
+                marker.position_data?.[0].lat ?? 0,
+                marker.position_data?.[0].lng ?? 0,
               ]}
               iconOptions={{
                 className: "jsx-marker",

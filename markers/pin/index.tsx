@@ -1,10 +1,25 @@
+/**
+ * Pin marker component for displaying place markers on the map
+ */
+import { FC } from "react";
 import { Place } from "@mui/icons-material";
 import { motion, useDragControls } from "framer-motion";
 import MarkerToolTip from "../tooltip";
 import useMarkerState from "./hook";
 import floorPlanStore from "../../stores/floor-plan.store";
+import { IBaseComponentProps } from "../../types/common";
 
-export default function PinMarker(props) {
+interface PinMarkerProps extends IBaseComponentProps {
+  isSelected?: boolean;
+}
+
+/**
+ * A pin marker component with interactive drag behavior
+ * 
+ * @param props - Component props including selection state
+ * @returns Pin marker component
+ */
+const PinMarker: FC<PinMarkerProps> = (props) => {
   const controls = useDragControls();
 
   const isEditing = floorPlanStore((e) => e.mode === "edit");
@@ -16,7 +31,7 @@ export default function PinMarker(props) {
     <MarkerToolTip>
       <MotionPin
         {...props}
-        drag={isEditing && props.isSelected}
+        drag={isEditing && !!props.isSelected}
         variants={markerState.variants}
         dragControls={controls}
         dragMomentum={false}
@@ -33,4 +48,6 @@ export default function PinMarker(props) {
       />
     </MarkerToolTip>
   );
-}
+};
+
+export default PinMarker;

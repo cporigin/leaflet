@@ -1,11 +1,27 @@
-import { createWithEqualityFn as create } from 'zustand/traditional'
+/**
+ * Marker store - manages state related to map markers
+ */
+import { createWithEqualityFn } from 'zustand/traditional';
+import { IStatusColorMap } from '../types/common';
 
+/**
+ * Interface for the marker store state
+ */
 interface MarkerState {
-  statusColor: Record<string, any>;
-  setStatusColor: (statusColor: Record<string, any>) => void;
+  /** Map of status colors for markers */
+  statusColor: IStatusColorMap;
+  
+  /**
+   * Set status color map for markers
+   * @param statusColor - The status color map to set
+   */
+  setStatusColor: (statusColor: IStatusColorMap) => void;
 }
 
-const markerStore = create<MarkerState>()((set) => ({
+/**
+ * Create the marker store with initial state and actions
+ */
+const markerStore = createWithEqualityFn<MarkerState>()((set) => ({
   statusColor: {},
   setStatusColor: (statusColor) => set({ statusColor })
 }));

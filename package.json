@@ -8,6 +8,8 @@
     "@mui/icons-material": "^5.14.9",
     "@mui/material": "^5.14.10",
     "@mui/system": "^5.14.10",
+    "@types/leaflet": "^1.9.17",
+    "@types/polylabel": "^1.1.3",
     "framer-motion": "10.8.4",
     "immer": "9.0.19",
     "leaflet": "1.9.3",

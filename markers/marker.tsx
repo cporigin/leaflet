@@ -1,16 +1,34 @@
-import { memo, useMemo } from "react";
+/**
+ * Custom marker component that switches between different marker types
+ */
+import { FC, memo, useMemo } from "react";
 import PinMarker from "./pin";
 import CicleMarker from "./circle";
 import floorPlanStore from "../stores/floor-plan.store";
+import { IBaseComponentProps } from "../types/common";
 
-const markers = {
+interface MarkerProps extends IBaseComponentProps {
+  type?: string;
+  id?: string | number;
+  top?: number | string;
+  left?: number | string;
+}
+
+// Map of marker type implementations
+const markers: Record<string, FC<any>> = {
   pin: PinMarker,
   circle: CicleMarker,
 };
 
 const defaultType = "circle";
 
-const CustomMarker = memo(function Marker(props) {
+/**
+ * Custom marker component with selection state handling
+ * 
+ * @param props - Component properties including marker type and position
+ * @returns The appropriate marker component based on type
+ */
+const CustomMarker = memo(function Marker(props: MarkerProps) {
   const selectedSpace = floorPlanStore((e) => e.selectedSpace);
   const MotionMarker = markers[props.type ?? defaultType];
 
