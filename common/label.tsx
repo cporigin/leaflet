@@ -6,7 +6,7 @@ import { Grid, Typography } from "@mui/material";
 import { JSXMarker } from "../markers/jsx-marker";
 import { IBaseComponentProps } from "../types/common";
 
-interface LabelProps extends IBaseComponentProps {
+export interface LabelProps extends IBaseComponentProps {
   center: [number, number];
   code?: string;
 }

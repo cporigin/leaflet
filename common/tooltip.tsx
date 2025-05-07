@@ -7,7 +7,7 @@ import { Box } from "@mui/system";
 import { Tooltip } from "react-leaflet";
 import { IBaseComponentProps } from "../types/common";
 
-interface TooltipProps extends IBaseComponentProps {
+export interface TooltipProps extends IBaseComponentProps {
   center: [number, number];
   code?: string;
   category?: string;

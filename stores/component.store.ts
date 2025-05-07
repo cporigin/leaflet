@@ -3,9 +3,9 @@
  */
 import { ComponentType } from 'react';
 import { createWithEqualityFn } from 'zustand/traditional';
-import { default as DefaultLabel } from "../common/label";
-import { default as DefaultTooltip } from "../common/tooltip";
-import DefaultPolygonMarker from "../polygons/marker";
+import { default as DefaultLabel, LabelProps } from "../common/label";
+import { default as DefaultTooltip, TooltipProps } from "../common/tooltip";
+import DefaultPolygonMarker, { ChildrenMarkerProps } from "../polygons/marker";
 import { IBaseComponentProps, ILayer } from '../types/common';
 
 /**
@@ -13,13 +13,13 @@ import { IBaseComponentProps, ILayer } from '../types/common';
  */
 export interface ComponentStore {
   /** Label component for rendering text labels on the map */
-  Label: ComponentType<IBaseComponentProps>;
+  Label: ComponentType<LabelProps>;
   
   /** Tooltip component for displaying additional information on hover */
-  Tooltip: ComponentType<IBaseComponentProps>;
+  Tooltip: ComponentType<TooltipProps>;
   
   /** Marker component specifically for polygons */
-  PolygonMarker: ComponentType<IBaseComponentProps>;
+  PolygonMarker: ComponentType<ChildrenMarkerProps>;
   
   /**
    * Function to get additional props for polygon components

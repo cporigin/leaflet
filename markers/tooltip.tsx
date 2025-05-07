@@ -1,7 +1,7 @@
 /**
  * Tooltip component for map markers with customized styling
  */
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, cloneElement, isValidElement } from "react";
 import { Box, Chip, Tooltip, TooltipProps, Typography } from "@mui/material";
 import { IBaseComponentProps } from "../types/common";
 
@@ -53,6 +53,11 @@ const MarkerToolTip: FC<MarkerToolTipProps> = (props) => {
     return <>{props.children}</>;
   }
 
+  // Ensure we're passing a valid ReactElement to Tooltip
+  if (!isValidElement(props.children)) {
+    return <div>{props.children}</div>;
+  }
+
   return (
     <Tooltip
       className="marker-tooltip"
@@ -86,3 +91,4 @@ const MarkerToolTip: FC<MarkerToolTipProps> = (props) => {
 };
 
 export default MarkerToolTip;
+export type { MarkerToolTipProps as TooltipProps };

@@ -22,8 +22,14 @@ export const JSXMarker = React.forwardRef(
 
     useEffect(() => {
       if (ref) {
-        const node = ReactDOM.createRoot(ref.getElement());
-        setRenderedChildren(node.render(children));
+        const element = ref.getElement();
+        if (element) {
+          const node = ReactDOM.createRoot(element);
+          // Using render with proper type handling
+          node.render(<>{children}</>);
+          // We don't need to store the rendered output, just the fact that rendering happened
+          setRenderedChildren(children);
+        }
       }
     }, [ref, children]);
 
@@ -39,7 +45,6 @@ export const JSXMarker = React.forwardRef(
           }}
           icon={L.divIcon(iconOptions)}
         />
-        {renderedChildren}
       </>
     );
   }

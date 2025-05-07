@@ -13,6 +13,8 @@ A TypeScript-based Leaflet component library for React applications, providing i
 ## Installation
 
 ```bash
+bun install @cporigin/leaflet
+# or
 npm install @cporigin/leaflet
 # or
 yarn add @cporigin/leaflet
@@ -21,8 +23,91 @@ yarn add @cporigin/leaflet
 Make sure to install the required peer dependencies:
 
 ```bash
-npm install react react-dom @mui/material @mui/icons-material leaflet react-leaflet
+bun install react react-dom @mui/material @mui/icons-material leaflet react-leaflet
 ```
+
+## Using as a Local Package
+
+To use this package locally in other projects during development:
+
+### Method 1: Using a Tarball (Recommended)
+
+1. Build and create a tarball package:
+```bash
+bun run tarball
+```
+
+This will create a file named `cporigin-leaflet-0.1.71.tgz`.
+
+2. Install the tarball in your consuming project:
+```bash
+cd /path/to/your-project
+bun install /path/to/leaflet/cporigin-leaflet-0.1.71.tgz
+```
+
+### Method 2: Direct File Path Reference
+
+Add the package directly to your project's package.json using a local file path:
+
+```json
+{
+  "dependencies": {
+    "@cporigin/leaflet": "file:../path/to/leaflet"
+  }
+}
+```
+
+Then run `bun install` in your consuming project.
+
+### Method 3: Using Bun Link
+
+If you prefer to use linking (may require extra setup):
+
+1. Build the package:
+```bash
+bun run build
+```
+
+2. Link the package globally:
+```bash
+bun link
+```
+
+3. In your consuming project, link to this package:
+```bash
+cd /path/to/your-project
+bun link @cporigin/leaflet
+```
+
+### Using npm
+
+1. Build the package:
+```bash
+npm run build
+```
+
+2. Link the package globally:
+```bash
+npm link
+```
+
+3. In your consuming project, link to this package:
+```bash
+cd /path/to/your-project
+npm link @cporigin/leaflet
+```
+
+Alternatively, you can add it directly to another project's package.json using a local file path:
+
+```json
+{
+  "dependencies": {
+    "@cporigin/leaflet": "file:../path/to/leaflet"
+  }
+}
+```
+
+Then run `npm install` in your consuming project.
 
 ## Basic Usage
 

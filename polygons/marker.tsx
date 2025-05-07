@@ -7,7 +7,7 @@ import { CircleMarker, CircleMarkerProps } from "react-leaflet";
 import markerStore from "../stores/marker.store";
 import { IBaseComponentProps } from "../types/common";
 
-interface ChildrenMarkerProps extends IBaseComponentProps {
+export interface ChildrenMarkerProps extends IBaseComponentProps {
   position_data?: any[];
   center: [number, number];
   status?: string;

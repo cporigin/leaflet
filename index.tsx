@@ -4,6 +4,7 @@
 import { FC, memo, useEffect } from "react";
 import { Box, SxProps, Theme } from "@mui/material";
 import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
+import { LatLngExpression, LatLngTuple } from "leaflet";
 
 import floorPlanStore from "./stores/floor-plan.store";
 import markerStore from "./stores/marker.store";
@@ -75,6 +76,10 @@ const Leaflet = memo<LeafletProps>(function Component(props) {
 		componentStore.setState(props.components || {});
 	}, [props.polygonColor, props.markerColor, props.components]);
 
+	const center: LatLngTuple = [51.505, -0.09];
+	const southWest: LatLngTuple = [-100, -220];
+	const northEast: LatLngTuple = [100, 220];
+
 	return (
 		<Box
 			id="markers-canvas-container"
@@ -99,20 +104,13 @@ const Leaflet = memo<LeafletProps>(function Component(props) {
 				...(props.sx || {}),
 			}}
 		>
-			<Box
-				alt="floorplan-image"
-				component={MapContainer}
+			<MapContainer
 				zoom={1}
 				maxZoom={5}
-				sx={{
-					bgcolor: "white",
-				}}
-				maxBounds={[
-					[-100, -220],
-					[100, 220],
-				]}
-				boundsOptions={{ padding: 0 }}
-				center={[51.505, -0.09]}
+				style={{ backgroundColor: "white" }}
+				maxBounds={[southWest, northEast]}
+				boundsOptions={{ padding: [0, 0] }}
+				center={center}
 			>
 				<TileLayer
 					attribution="meow"
@@ -121,7 +119,7 @@ const Leaflet = memo<LeafletProps>(function Component(props) {
 				/>
 				<InitMapStore />
 				<FeatureLeaflet />
-			</Box>
+			</MapContainer>
 		</Box>
 	);
 });
