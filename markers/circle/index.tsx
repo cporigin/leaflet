@@ -23,7 +23,7 @@ const CicleMarker: FC<CircleMarkerProps> = (props) => {
   return (
     <MarkerToolTip>
       <Box
-        bgcolor={`${statusColor?.[props.status || ""]?.color}.main` ?? "#1F8A70"}
+        bgcolor={`${statusColor?.[props.status || ""]?.color}.main`}
         sx={{
           marginTop: "-6%",
           width: 20,

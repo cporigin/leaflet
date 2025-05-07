@@ -3,6 +3,7 @@
  */
 import React, { FC, useCallback, useEffect, useRef, ReactNode } from "react";
 import { FeatureGroup } from "react-leaflet";
+import { ControlPosition } from "leaflet";
 import { EditControl } from "react-leaflet-draw";
 import { ILayer, IPosition } from "./types/common";
 import floorPlanStore from "./stores/floor-plan.store";
@@ -19,25 +20,18 @@ interface CustomEditControlProps {
  * @returns Edit control with feature group container
  */
 const CustomEditControl: FC<CustomEditControlProps> = (props) => {
-  if (props.disabled) {
+
+
+  const mode = floorPlanStore((e) => e.mode);
+  const addTempLayer = floorPlanStore((e) => e.addTempLayer);
+  const removeTempLayer = floorPlanStore((e) => e.removeTempLayer);
+  const isAdding = floorPlanStore((e) => e.mode === "add");
+  const tempLayers = floorPlanStore((e) => e.tempLayers);
+  const setTempLayers = floorPlanStore((e) => e.setTempLayers);
+
+    if (props.disabled) {
     return <>{props.children}</>;
   }
-
-  const [
-    mode,
-    addTempLayer,
-    removeTempLayer,
-    isAdding,
-    tempLayers,
-    setTempLayers,
-  ] = floorPlanStore((e) => [
-    e.mode,
-    e.addTempLayer,
-    e.removeTempLayer,
-    e.mode === "add",
-    e.tempLayers,
-    e.setTempLayers,
-  ]);
 
   const drawControlRef = useRef<any>();
 
@@ -95,11 +89,11 @@ const CustomEditControl: FC<CustomEditControlProps> = (props) => {
       removeList.push(id as string);
     });
 
-    removeTempLayer(removeList);
+    removeList.forEach((id) => removeTempLayer(id));
   }, [removeTempLayer]);
-
+  
   const defaultControl = {
-    position: "topright",
+    position: "topright" as ControlPosition,
     draw: {
       circle: false,
       polyline: false,

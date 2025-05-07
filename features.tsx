@@ -15,9 +15,9 @@ import Polygons from "./polygons";
  * @returns Component with appropriate edit controls and map features
  */
 const FeatureLeaflet: FC = () => {
-	const [tempMarkers, selectedLayerNotEmpty, isNotAdding] = floorPlanStore(
-		(e) => [e.tempLayers, !isEmpty(e.selectedLayer), e.mode !== "add"],
-	);
+	const tempMarkers = floorPlanStore((e) => e.tempLayers);
+	const selectedLayerNotEmpty = floorPlanStore((e) => !isEmpty(e.selectedLayer));
+	const isNotAdding = floorPlanStore((e) => e.mode !== "add");
 
 	if (isEmpty(tempMarkers)) {
 		return <CustomEditControl />;

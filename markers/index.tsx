@@ -13,10 +13,9 @@ import { ILayer } from "../types/common";
  * Component that renders all markers from the temporary layers
  */
 const Markers = memo(function MarkersComponent() {
-  const [tempMarkers, selectedSpace] = floorPlanStore((e) => [
-    filter(e.tempLayers, { type: "marker" }) as ILayer[],
-    e.selectedSpace,
-  ]);
+  const tempMarkers = floorPlanStore((e) => 
+    filter(e.tempLayers, { type: "marker" }) as ILayer[]);
+  const selectedSpace = floorPlanStore((e) => e.selectedSpace);
 
   if (isEmpty(tempMarkers)) {
     return <></>;

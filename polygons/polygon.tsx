@@ -2,7 +2,7 @@
  * Custom polygon component with additional functionality
  */
 import { FC, useEffect, useMemo, useRef } from "react";
-import { Pane, Polygon, Path } from "react-leaflet";
+import { Pane, Polygon } from "react-leaflet";
 import { map } from "lodash";
 import CustomEditControl from "../edit-control";
 import componentStore from "../stores/component.store";
@@ -13,6 +13,7 @@ import {
   calculatePolybelOfPositions,
 } from "../utils/leaflet";
 import { IBaseComponentProps, ILayer, IPosition } from "../types/common";
+import { Path } from "node_modules/@types/leaflet";
 
 interface CustomPolygonProps extends IBaseComponentProps {
   layer: ILayer;
@@ -27,14 +28,11 @@ interface CustomPolygonProps extends IBaseComponentProps {
  */
 const CustomPolygon: FC<CustomPolygonProps> = (props) => {
   const { layer, selectedLayer } = props;
-  const polygonRef = useRef<Path>();
+  const polygonRef = useRef<Path>(null);
 
   const statusColor = polygonStore((e) => e.statusColor);
-
-  const [disabledMarker, mode] = floorPlanStore((e) => [
-    e.mode === "edit" && selectedLayer,
-    e.mode,
-  ]);
+  const disabledMarker = floorPlanStore((e) => e.mode === "edit" && selectedLayer);
+  const mode = floorPlanStore((e) => e.mode);
 
   const { Tooltip, Label, PolygonMarker, polygonHandleClick, polygonProps } =
     componentStore();
@@ -58,9 +56,11 @@ const CustomPolygon: FC<CustomPolygonProps> = (props) => {
   // Enable editing for selected polygons in edit mode
   useEffect(() => {
     if (polygonRef.current && props?.selectedLayer) {
+      // @ts-ignore
       polygonRef.current?.editing?.enable?.();
     }
     if (mode !== "edit") {
+      // @ts-ignore
       polygonRef.current?.editing?.disable?.();
     }
   }, [props?.selectedLayer, mode]);
@@ -85,18 +85,18 @@ const CustomPolygon: FC<CustomPolygonProps> = (props) => {
         ])}
         {...polygonProps({ layer, status, center })}
       >
-        <Pane style={{ zIndex: 105 }}>
+        <Pane name="tooltip-pane" style={{ zIndex: 105 }}>
           <Tooltip {...childrenProps} />
         </Pane>
         {!disabledMarker && (
-          <Pane style={{ zIndex: 100 }}>
+          <Pane name="polygon-marker-pane" style={{ zIndex: 100 }}>
             <PolygonMarker
               eventHandlers={{
                 click: () => polygonHandleClick(layer.id),
               }}
               {...childrenProps}
             >
-              <Pane style={{ zIndex: 105 }}>
+              <Pane name="tooltip-inner-pane" style={{ zIndex: 105 }}>
                 {/* fix cant set eventsPointer: none */}
                 <Tooltip {...childrenProps} />
               </Pane>

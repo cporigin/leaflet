@@ -29,14 +29,20 @@ interface MarkerState {
 export default function useMarkerState(status?: string): MarkerState {
   const mode = floorPlanStore((e) => e.mode);
 
-  const defaultVariants = {
+  const defaultVariants: MarkerState["variants"] = {
     default: {
       // scale: newScale
+      cursor: undefined,
+      scale: undefined,
+      fill: undefined,
+      border: undefined,
     },
     selected: {
       // scale: newScale,
       fill: "red",
-      // border: '3px solid black'
+      cursor: undefined,
+      scale: undefined,
+      border: undefined,
     },
   };
 

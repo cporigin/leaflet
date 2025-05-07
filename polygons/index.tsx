@@ -13,10 +13,9 @@ import { ILayer } from "../types/common";
  * @returns Collection of polygon components
  */
 export default function Polygons() {
-	const [tempMarkers, selectedSpace] = floorPlanStore((e) => [
-		filter(e.tempLayers, (el) => el.position_data) as ILayer[],
-		e.selectedSpace,
-	]);
+	const tempMarkers = floorPlanStore((e) => 
+		filter(e.tempLayers, (el) => el.position_data) as ILayer[]);
+	const selectedSpace = floorPlanStore((e) => e.selectedSpace);
 
 	if (isEmpty(tempMarkers)) {
 		return <></>;

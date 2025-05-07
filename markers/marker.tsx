@@ -30,6 +30,7 @@ const defaultType = "circle";
  */
 const CustomMarker = memo(function Marker(props: MarkerProps) {
   const selectedSpace = floorPlanStore((e) => e.selectedSpace);
+
   const MotionMarker = markers[props.type ?? defaultType];
 
   const { id, top, left } = { ...props };
