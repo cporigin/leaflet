@@ -1,7 +1,7 @@
 /**
  * Marker store - manages state related to map markers
  */
-import { createWithEqualityFn } from 'zustand/traditional';
+import { create } from 'zustand';
 import { IStatusColorMap } from '../types/common';
 
 /**
@@ -21,7 +21,7 @@ interface MarkerState {
 /**
  * Create the marker store with initial state and actions
  */
-const markerStore = createWithEqualityFn<MarkerState>()((set) => ({
+const markerStore = create<MarkerState>()((set) => ({
   statusColor: {},
   setStatusColor: (statusColor) => set({ statusColor })
 }));

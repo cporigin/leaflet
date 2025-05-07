@@ -4,7 +4,7 @@
 import { remove } from "lodash";
 import { createRef } from "react";
 import { Map as LeafletMap } from "leaflet";
-import { createWithEqualityFn } from 'zustand/traditional';
+import { create } from 'zustand';
 import { ILayer, IPosition, ISelectedSpace, ITempPayload } from "../types/common";
 
 /**
@@ -138,7 +138,7 @@ interface FloorPlanState {
 /**
  * Create the floor plan store with initial state and actions
  */
-const floorPlanStore = createWithEqualityFn<FloorPlanState>()((set, get) => ({
+const floorPlanStore = create<FloorPlanState>()((set, get) => ({
   mode: "default",
   selectedLayer: {},
   layers: [],

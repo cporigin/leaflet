@@ -2,7 +2,7 @@
  * Component store - provides configurable components for the leaflet implementation
  */
 import { ComponentType } from 'react';
-import { createWithEqualityFn } from 'zustand/traditional';
+import { create } from 'zustand';
 import { default as DefaultLabel, LabelProps } from "../common/label";
 import { default as DefaultTooltip, TooltipProps } from "../common/tooltip";
 import DefaultPolygonMarker, { ChildrenMarkerProps } from "../polygons/marker";
@@ -49,7 +49,7 @@ export interface ComponentStore {
 /**
  * Create the component store with initial components and actions
  */
-const componentStore = createWithEqualityFn<ComponentStore>()((set) => ({
+const componentStore = create<ComponentStore>()((set) => ({
   Label: DefaultLabel,
   Tooltip: DefaultTooltip,
   PolygonMarker: DefaultPolygonMarker,

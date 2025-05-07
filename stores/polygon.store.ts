@@ -1,7 +1,7 @@
 /**
  * Polygon store - manages state related to map polygons
  */
-import { createWithEqualityFn } from 'zustand/traditional';
+import { create } from 'zustand';
 import { IStatusColorMap } from '../types/common';
 
 /**
@@ -21,7 +21,7 @@ interface PolygonState {
 /**
  * Create the polygon store with initial state and actions
  */
-const polygonStore = createWithEqualityFn<PolygonState>()((set) => ({
+const polygonStore = create<PolygonState>()((set) => ({
   statusColor: {},
   setStatusColor: (statusColor) => set({ statusColor })
 }));
