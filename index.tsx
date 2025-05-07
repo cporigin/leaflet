@@ -1,10 +1,10 @@
 /**
  * Main Leaflet component - entry point for the leaflet map implementation
  */
-import { FC, memo, useEffect } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { Box, SxProps, Theme } from "@mui/material";
-import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
-import { LatLngExpression, LatLngTuple } from "leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
+import { LatLngTuple } from "leaflet";
 
 import floorPlanStore from "./stores/floor-plan.store";
 import markerStore from "./stores/marker.store";
@@ -12,6 +12,8 @@ import polygonStore from "./stores/polygon.store";
 import componentStore, { ComponentStore } from "./stores/component.store";
 import FeatureLeaflet from "./features";
 import { IStatusColorMap } from "./types/common";
+import InitMapStore from "./utils/map-events";
+import { TileCacheManager } from "./utils/tile-cache";
 
 interface LeafletProps {
   /** URL template for map tiles */
@@ -34,35 +36,6 @@ interface LeafletProps {
 }
 
 /**
- * Internal component that initializes map store
- */
-function InitMapStore() {
-	const map = useMap();
-
-	const [setMap, setZoomAmplified] = floorPlanStore((e) => [
-		e.setMap,
-		e.setZoomAmplified,
-	]);
-
-	const mapEvents = useMapEvents({
-		zoomend: () => setZoomAmplified(mapEvents.getZoom()),
-	});
-
-	useEffect(() => {
-		if (map) {
-			setMap(map);
-		}
-
-		return () => {
-			console.log("unmount");
-			setZoomAmplified(1);
-		};
-	}, [map, setMap, setZoomAmplified]);
-
-	return <></>;
-}
-
-/**
  * Main Leaflet component
  * Provides a configurable map with markers, polygons, and interactive features
  * 
@@ -70,6 +43,9 @@ function InitMapStore() {
  * @returns Map container component with configured features
  */
 const Leaflet = memo<LeafletProps>(function Component(props) {
+	// Use optimized cacheKey from the TileCacheManager
+	const [cacheKey, setCacheKey] = useState(TileCacheManager.getCacheKey());
+	
 	useEffect(() => {
 		polygonStore.setState({ statusColor: props.polygonColor || {} });
 		markerStore.setState({ statusColor: props.markerColor || {} });
@@ -79,6 +55,11 @@ const Leaflet = memo<LeafletProps>(function Component(props) {
 	const center: LatLngTuple = [51.505, -0.09];
 	const southWest: LatLngTuple = [-100, -220];
 	const northEast: LatLngTuple = [100, 220];
+	
+	// Create cache busting URL by appending compact cache key
+	const tileUrl = useMemo(() => {
+		return `${props.url}/{z}/{x}/{y}.png?v=${cacheKey}`;
+	}, [props.url, cacheKey]);
 
 	return (
 		<Box
@@ -115,15 +96,16 @@ const Leaflet = memo<LeafletProps>(function Component(props) {
 				<TileLayer
 					attribution="meow"
 					noWrap
-					url={`${props.url}/{z}/{x}/{y}.png`}
+					url={tileUrl}
 				/>
-				<InitMapStore />
+				<InitMapStore onCacheReset={setCacheKey} />
 				<FeatureLeaflet />
 			</MapContainer>
 		</Box>
 	);
 });
 
-export { floorPlanStore, markerStore, polygonStore };
+// Export the cache manager for external use
+export { floorPlanStore, markerStore, polygonStore, TileCacheManager };
 
 export default Leaflet;
