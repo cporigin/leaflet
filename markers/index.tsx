@@ -1,7 +1,7 @@
 /**
  * Markers component that renders all map markers
  */
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { filter, isEmpty } from "lodash";
 import CustomMarker from "./marker";
 import { JSXMarker } from "./jsx-marker";
@@ -13,9 +13,13 @@ import { ILayer } from "../types/common";
  * Component that renders all markers from the temporary layers
  */
 const Markers = memo(function MarkersComponent() {
-  const tempMarkers = floorPlanStore((e) => 
-    filter(e.tempLayers, { type: "marker" }) as ILayer[]);
   const selectedSpace = floorPlanStore((e) => e.selectedSpace);
+  const tempLayers = floorPlanStore((e) => e.tempLayers);
+
+  const tempMarkers = useMemo(
+    () => filter(tempLayers, { type: "marker" }) as ILayer[],
+    [tempLayers]
+  );
 
   if (isEmpty(tempMarkers)) {
     return <></>;
