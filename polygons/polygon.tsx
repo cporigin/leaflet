@@ -13,7 +13,7 @@ import {
   calculatePolybelOfPositions,
 } from "../utils/leaflet";
 import { IBaseComponentProps, ILayer, IPosition } from "../types/common";
-import { Path } from "node_modules/@types/leaflet";
+import { Path } from "leaflet";
 
 interface CustomPolygonProps extends IBaseComponentProps {
   layer: ILayer;
@@ -79,10 +79,9 @@ const CustomPolygon: FC<CustomPolygonProps> = (props) => {
         eventHandlers={{
           click: () => polygonHandleClick(layer.id),
         }}
-        positions={map(layer.position_data || [], (position: IPosition) => [
-          position.lat,
-          position.lng,
-        ])}
+        positions={map(layer.position_data || [], (position: IPosition) => 
+          [position.lat, position.lng] as [number, number]
+        )}
         {...polygonProps({ layer, status, center })}
       >
         <Pane name="tooltip-pane" style={{ zIndex: 105 }}>

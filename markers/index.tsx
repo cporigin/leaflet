@@ -41,7 +41,11 @@ const Markers = memo(function MarkersComponent() {
               }}
             >
               <div>
-                <CustomMarker />
+                <CustomMarker
+                  type={marker.type}
+                  {...marker} // Pass all marker properties
+                  id={marker.id}
+                />
               </div>
             </JSXMarker>
           </CustomEditControl>

@@ -1,10 +1,10 @@
 /**
  * Map event handlers for the Leaflet component
  */
-import { useEffect } from 'react';
-import { useMap, useMapEvents } from 'react-leaflet';
-import floorPlanStore from '../stores/floor-plan.store';
-import TileCacheManager from './tile-cache';
+import { useEffect, useRef } from "react";
+import { useMap, useMapEvents } from "react-leaflet";
+import floorPlanStore from "../stores/floor-plan.store";
+import TileCacheManager from "./tile-cache";
 
 interface InitMapStoreProps {
   /**
@@ -20,19 +20,25 @@ interface InitMapStoreProps {
  */
 export const InitMapStore = ({ onCacheReset }: InitMapStoreProps) => {
   const map = useMap();
-  const [setMap, setZoomAmplified] = floorPlanStore((e) => [
-    e.setMap,
-    e.setZoomAmplified,
-  ]);
+
+  const setMap = floorPlanStore((e) => e.setMap);
+  const setZoomAmplified = floorPlanStore((e) => e.setZoomAmplified);
+  const currentZoom = floorPlanStore((e) => e.zoomAmplified);
+
+  const lastCacheKey = useRef(TileCacheManager.getCacheKey());
 
   const mapEvents = useMapEvents({
     zoomend: () => {
-      // Update zoom level in store
-      setZoomAmplified(mapEvents.getZoom());
-      
-      // Reset cache when zoom changes and notify parent
-      const newCacheKey = TileCacheManager.resetCache();
-      if (onCacheReset) {
+      const newZoom = mapEvents.getZoom();
+      // Only update zoom if it has changed
+      if (newZoom !== currentZoom) {
+        setZoomAmplified(newZoom);
+      }
+
+      // Only reset cache and notify parent if cache key has changed
+      const newCacheKey = TileCacheManager.getCacheKey();
+      if (newCacheKey !== lastCacheKey.current && onCacheReset) {
+        lastCacheKey.current = newCacheKey;
         onCacheReset(newCacheKey);
       }
     },
@@ -45,9 +51,8 @@ export const InitMapStore = ({ onCacheReset }: InitMapStoreProps) => {
 
     return () => {
       console.log("map component unmounted");
-      setZoomAmplified(1);
     };
-  }, [map, setMap, setZoomAmplified]);
+  }, [map, setMap]);
 
   return null;
 };

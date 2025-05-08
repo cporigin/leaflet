@@ -1,8 +1,8 @@
 /**
  * Custom JSX marker for Leaflet that allows rendering React components as markers
  */
-import L, { DivIconOptions, Marker as LeafletMarker, MarkerOptions } from "leaflet";
-import React, { useState, useEffect, ForwardedRef, ReactNode } from "react";
+import L, { DivIconOptions, Marker as LeafletMarker } from "leaflet";
+import React, { ForwardedRef, ReactNode, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { Marker, MarkerProps } from "react-leaflet";
 

@@ -33,7 +33,7 @@ const CustomEditControl: FC<CustomEditControlProps> = (props) => {
     return <>{props.children}</>;
   }
 
-  const drawControlRef = useRef<any>();
+  const drawControlRef = useRef<any>(null);
 
   function onMounted(ctl: any) {
     drawControlRef.current = ctl;
