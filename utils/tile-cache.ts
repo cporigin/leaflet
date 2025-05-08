@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 /**
  * TileCacheManager - Utility for managing tile image caching
  * Provides mechanisms to control when map tiles are refreshed
@@ -9,19 +11,16 @@
 export const TileCacheManager = {
   timestamp: Date.now(),
   // Use a shorter representation for efficiency
-  cacheKey: Math.floor(Date.now() / 1000).toString(36),
+  cacheKey: dayjs().format('YYMMDDHHmm'),
   
   /**
    * Reset the cache timestamp to force fresh tile loading
    * @param useDate - Whether to use a full date (true) or a compact timestamp (false)
    * @returns The new cache key
    */
-  resetCache: (useDate: boolean = false): string => {
+  resetCache: (): string => {
     TileCacheManager.timestamp = Date.now();
-    // Generate a more compact cache key using base36 encoding
-    TileCacheManager.cacheKey = useDate 
-      ? TileCacheManager.timestamp.toString() 
-      : Math.floor(Date.now() / 1000).toString(36);
+    TileCacheManager.cacheKey = dayjs(TileCacheManager.timestamp).format('YYMMDDHHmm');
     return TileCacheManager.cacheKey;
   },
   
@@ -31,7 +30,29 @@ export const TileCacheManager = {
    * @returns The current cache key
    */
   getCacheKey: (useDate: boolean = false): string => {
-    return useDate ? TileCacheManager.timestamp.toString() : TileCacheManager.cacheKey;
+    return useDate
+      ? dayjs(TileCacheManager.timestamp).format('YYMMDDHHmm')
+      : TileCacheManager.cacheKey;
+  },
+  
+  /**
+   * Check if the cache should be reset based on a time threshold
+   * @param thresholdMinutes - Minutes to keep the cache before resetting (default: 1)
+   * @returns Object containing whether reset is needed and the cache key
+   */
+  shouldResetCache: (thresholdMinutes: number = 1): { shouldReset: boolean, cacheKey: string } => {
+    const currentTime = Date.now();
+    const thresholdMs = thresholdMinutes * 60 * 1000;
+    const timeSinceLastReset = currentTime - TileCacheManager.timestamp;
+    
+    if (timeSinceLastReset >= thresholdMs) {
+      // Reset cache if threshold has passed
+      const newCacheKey = TileCacheManager.resetCache();
+      return { shouldReset: true, cacheKey: newCacheKey };
+    }
+    
+    // Return current cache key if threshold hasn't passed
+    return { shouldReset: false, cacheKey: TileCacheManager.cacheKey };
   }
 };
 

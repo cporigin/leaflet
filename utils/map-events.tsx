@@ -16,7 +16,7 @@ interface InitMapStoreProps {
 
 /**
  * Component that initializes the map store and handles map events
- * Triggers cache reset when zoom changes
+ * Triggers cache reset when zoom changes and cache is older than 1 minute
  */
 export const InitMapStore = ({ onCacheReset }: InitMapStoreProps) => {
   const map = useMap();
@@ -25,7 +25,6 @@ export const InitMapStore = ({ onCacheReset }: InitMapStoreProps) => {
   const setZoomAmplified = floorPlanStore((e) => e.setZoomAmplified);
   const currentZoom = floorPlanStore((e) => e.zoomAmplified);
 
-  const lastCacheKey = useRef(TileCacheManager.getCacheKey());
 
   const mapEvents = useMapEvents({
     zoomend: () => {
@@ -33,13 +32,14 @@ export const InitMapStore = ({ onCacheReset }: InitMapStoreProps) => {
       // Only update zoom if it has changed
       if (newZoom !== currentZoom) {
         setZoomAmplified(newZoom);
-      }
-
-      // Only reset cache and notify parent if cache key has changed
-      const newCacheKey = TileCacheManager.getCacheKey();
-      if (newCacheKey !== lastCacheKey.current && onCacheReset) {
-        lastCacheKey.current = newCacheKey;
-        onCacheReset(newCacheKey);
+        
+        // Check if cache should be reset (cached for 1 minute after zoom)
+        const { shouldReset, cacheKey } = TileCacheManager.shouldResetCache(1);
+        
+        // Only notify about cache reset if it actually happened
+        if (shouldReset && onCacheReset) {
+          onCacheReset(cacheKey);
+        }
       }
     },
   });
