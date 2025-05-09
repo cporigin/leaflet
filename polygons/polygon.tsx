@@ -84,18 +84,18 @@ const CustomPolygon: FC<CustomPolygonProps> = (props) => {
         )}
         {...polygonProps({ layer, status, center })}
       >
-        <Pane name="tooltip-pane" style={{ zIndex: 105 }}>
+        <Pane name={`tooltip-pane-${props?.layer?.id}`} style={{ zIndex: 105 }}>
           <Tooltip {...childrenProps} />
         </Pane>
         {!disabledMarker && (
-          <Pane name="polygon-marker-pane" style={{ zIndex: 100 }}>
+          <Pane name={`polygon-marker-pane-${props?.layer?.id}`} style={{ zIndex: 100 }}>
             <PolygonMarker
               eventHandlers={{
                 click: () => polygonHandleClick(layer.id),
               }}
               {...childrenProps}
             >
-              <Pane name="tooltip-inner-pane" style={{ zIndex: 105 }}>
+              <Pane name={`tooltip-inner-pane-${props?.layer?.id}`} style={{ zIndex: 105 }}>
                 {/* fix cant set eventsPointer: none */}
                 <Tooltip {...childrenProps} />
               </Pane>
