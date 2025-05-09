@@ -22,7 +22,7 @@ interface CustomPolygonProps extends IBaseComponentProps {
 
 /**
  * Enhanced polygon component with editing capabilities and visual features
- * 
+ *
  * @param props - Component props including layer data and selection state
  * @returns Polygon component with appropriate editing controls
  */
@@ -31,7 +31,9 @@ const CustomPolygon: FC<CustomPolygonProps> = (props) => {
   const polygonRef = useRef<Path>(null);
 
   const statusColor = polygonStore((e) => e.statusColor);
-  const disabledMarker = floorPlanStore((e) => e.mode === "edit" && selectedLayer);
+  const disabledMarker = floorPlanStore(
+    (e) => e.mode === "edit" && selectedLayer
+  );
   const mode = floorPlanStore((e) => e.mode);
 
   const { Tooltip, Label, PolygonMarker, polygonHandleClick, polygonProps } =
@@ -79,23 +81,25 @@ const CustomPolygon: FC<CustomPolygonProps> = (props) => {
         eventHandlers={{
           click: () => polygonHandleClick(layer.id),
         }}
-        positions={map(layer.position_data || [], (position: IPosition) => 
-          [position.lat, position.lng] as [number, number]
+        positions={map(
+          layer.position_data || [],
+          (position: IPosition) =>
+            [position.lat, position.lng] as [number, number]
         )}
         {...polygonProps({ layer, status, center })}
       >
-        <Pane name={`tooltip-pane-${props?.layer?.id}`} style={{ zIndex: 105 }}>
+        <Pane name={`tooltip-pane-${props?.layer?.id}`}>
           <Tooltip {...childrenProps} />
         </Pane>
         {!disabledMarker && (
-          <Pane name={`polygon-marker-pane-${props?.layer?.id}`} style={{ zIndex: 100 }}>
+          <Pane name={`polygon-marker-pane-${props?.layer?.id}`}>
             <PolygonMarker
               eventHandlers={{
                 click: () => polygonHandleClick(layer.id),
               }}
               {...childrenProps}
             >
-              <Pane name={`tooltip-inner-pane-${props?.layer?.id}`} style={{ zIndex: 105 }}>
+              <Pane name={`tooltip-inner-pane-${props?.layer?.id}`}>
                 {/* fix cant set eventsPointer: none */}
                 <Tooltip {...childrenProps} />
               </Pane>

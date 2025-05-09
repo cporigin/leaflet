@@ -1,12 +1,19 @@
 /**
  * Custom edit control component for Leaflet with drawing capabilities
  */
-import React, { FC, useCallback, useEffect, useRef, ReactNode } from "react";
-import { FeatureGroup } from "react-leaflet";
 import { ControlPosition } from "leaflet";
+import {
+  FC,
+  ReactNode,
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
+import { FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
-import { ILayer, IPosition } from "./types/common";
 import floorPlanStore from "./stores/floor-plan.store";
+import { ILayer, IPosition } from "./types/common";
 
 interface CustomEditControlProps {
   disabled?: boolean;
@@ -15,13 +22,11 @@ interface CustomEditControlProps {
 
 /**
  * Edit control component that handles drawing and editing map elements
- * 
+ *
  * @param props - Component props including disabled state and children elements
  * @returns Edit control with feature group container
  */
-const CustomEditControl: FC<CustomEditControlProps> = (props) => {
-
-
+const CustomEditControl: FC<CustomEditControlProps> = memo((props) => {
   const mode = floorPlanStore((e) => e.mode);
   const addTempLayer = floorPlanStore((e) => e.addTempLayer);
   const removeTempLayer = floorPlanStore((e) => e.removeTempLayer);
@@ -29,69 +34,74 @@ const CustomEditControl: FC<CustomEditControlProps> = (props) => {
   const tempLayers = floorPlanStore((e) => e.tempLayers);
   const setTempLayers = floorPlanStore((e) => e.setTempLayers);
 
-    if (props.disabled) {
-    return <>{props.children}</>;
-  }
-
   const drawControlRef = useRef<any>(null);
 
   function onMounted(ctl: any) {
     drawControlRef.current = ctl;
   }
 
-  const handleCreated = useCallback((e: any) => {
-    const { layerType: type, layer } = e;
+  const handleCreated = useCallback(
+    (e: any) => {
+      const { layerType: type, layer } = e;
 
-    // multiple draw logic
-    if (type === "polygon") {
-      const { _leaflet_id } = layer;
-      const newLayer = { 
-        type, 
-        position_data: layer.getLatLngs()[0] as IPosition[] 
-      };
+      // multiple draw logic
+      if (type === "polygon") {
+        const { _leaflet_id } = layer;
+        const newLayer = {
+          type,
+          position_data: layer.getLatLngs()[0] as IPosition[],
+        };
 
-      addTempLayer(newLayer);
-      e.target?._layers?.[_leaflet_id]?.remove();
-    }
-
-    if (type === "circle") {
-      console.log(e);
-    }
-
-    if (type === "marker") {
-      const { lat = null, lng = null } = { ...layer?._latlng };
-
-      addTempLayer({ type, position_data: [{ lat, lng }] });
-      layer.remove(layer._leaflet_id);
-    }
-  }, [addTempLayer]);
-
-  const onEditVertex = useCallback((e: any) => {
-    const { poly } = e;
-    const result = tempLayers.map((tempLayer: ILayer) => {
-      if (tempLayer?.id === poly.options?.attribution) {
-        return { ...tempLayer, position_data: poly.editing.latlngs[0][0] };
+        addTempLayer(newLayer);
+        e.target?._layers?.[_leaflet_id]?.remove();
       }
-      return tempLayer;
-    });
 
-    setTempLayers(result);
-  }, [tempLayers, setTempLayers]);
+      if (type === "circle") {
+        console.log(e);
+      }
 
-  const handleDeleted = useCallback((e: any) => {
-    const {
-      layers: { _layers },
-    } = e;
+      if (type === "marker") {
+        const { lat = null, lng = null } = { ...layer?._latlng };
 
-    const removeList: string[] = [];
+        addTempLayer({ type, position_data: [{ lat, lng }] });
+        layer.remove(layer._leaflet_id);
+      }
+    },
+    [addTempLayer]
+  );
 
-    Object.values(_layers).forEach((id) => {
-      removeList.push(id as string);
-    });
+  const onEditVertex = useCallback(
+    (e: any) => {
+      const { poly } = e;
+      const result = tempLayers.map((tempLayer: ILayer) => {
+        if (tempLayer?.id === poly.options?.attribution) {
+          return { ...tempLayer, position_data: poly.editing.latlngs[0][0] };
+        }
+        return tempLayer;
+      });
 
-    removeList.forEach((id) => removeTempLayer(id));
-  }, [removeTempLayer]);
-  
+      setTempLayers(result);
+    },
+    [tempLayers, setTempLayers]
+  );
+
+  const handleDeleted = useCallback(
+    (e: any) => {
+      const {
+        layers: { _layers },
+      } = e;
+
+      const removeList: string[] = [];
+
+      Object.values(_layers).forEach((id) => {
+        removeList.push(id as string);
+      });
+
+      removeList.forEach((id) => removeTempLayer(id));
+    },
+    [removeTempLayer]
+  );
+
   const defaultControl = {
     position: "topright" as ControlPosition,
     draw: {
@@ -121,6 +131,10 @@ const CustomEditControl: FC<CustomEditControlProps> = (props) => {
     }
   }, [mode]);
 
+  if (props.disabled) {
+    return <>{props.children}</>;
+  }
+
   return (
     <>
       <FeatureGroup>
@@ -129,6 +143,6 @@ const CustomEditControl: FC<CustomEditControlProps> = (props) => {
       </FeatureGroup>
     </>
   );
-};
+});
 
 export default CustomEditControl;

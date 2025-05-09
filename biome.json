@@ -1,0 +1,83 @@
+{
+  "files": {
+    "include": [
+      "src/**/*.js",
+      "src/**/*.ts",
+      "src/**/*.jsx",
+      "src/**/*.tsx",
+      "next.config.js"
+    ],
+    "ignore": [
+      "tests/*.js",
+      "src/**/*.test.js",
+      "src/utils/auth.ts"
+    ]
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "always",
+      "jsxQuoteStyle": "single",
+      "quoteStyle": "single",
+      "semicolons": "always",
+      "trailingCommas": "none",
+      "quoteProperties": "asNeeded",
+      "bracketSpacing": true,
+      "bracketSameLine": false
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "ignore": []
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "useExhaustiveDependencies": "warn",
+        "noUndeclaredVariables": "error",
+        "noUnusedVariables": "warn",
+        "noUnreachable": "error",
+        "recommended": true,
+        "useHookAtTopLevel": "warn",
+        "noEmptyPattern": "error",
+        "noUnsafeOptionalChaining": "warn",
+        "noChildrenProp": "error",
+        "noUnusedLabels": "error",
+        "noRenderReturnValue": "warn"
+      },
+      "style": {
+        "useImportType": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noArrayIndexKey": "warn"
+      },
+      "complexity": {
+        "useLiteralKeys": "off",
+        "noExtraBooleanCast": "off",
+        "noUselessTernary": "off"
+      },
+      "performance": {
+        "noDelete": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "include": [
+        "src/api/openapi.ts"
+      ],
+      "linter": {
+        "enabled": false
+      }
+    }
+  ]
+}

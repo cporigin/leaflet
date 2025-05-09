@@ -1,6 +1,6 @@
 {
   "name": "@cporigin/leaflet",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Leaflet map implementation with React components",
   "main": "index.tsx",
   "files": [
@@ -11,7 +11,9 @@
   "scripts": {
     "build": "bun run tsc",
     "link-local": "bun run yalc push --replace",
-    "tarball": "bun run build && npm pack"
+    "tarball": "bun run build && npm pack",
+    "watch": "chokidar \"**/*.{ts,tsx,js,jsx}\" -c \"bun run watch:trigger\" --ignore node_modules",
+    "watch:trigger": "echo 'File changed, will run link-local in 7 seconds...' && delay 7 && bun run link-local"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -40,6 +42,9 @@
     "@types/lodash": "^4.14.194",
     "@types/react": "^19.0.0",
     "babel-plugin-direct-import": "^1.0.0",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^9.1.2",
+    "delay-cli": "^2.0.0",
     "eslint": "8.23.1",
     "eslint-config-next": "12.3.0",
     "eslint-config-prettier": "^8.5.0",
@@ -47,6 +52,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "nodemon": "^3.1.10",
     "prettier": "^2.7.1",
     "typescript": "5.0.2"
   },
