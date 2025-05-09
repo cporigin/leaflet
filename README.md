@@ -45,7 +45,33 @@ cd /path/to/your-project
 bun install /path/to/leaflet/cporigin-leaflet-0.1.71.tgz
 ```
 
-### Method 2: Direct File Path Reference
+### Method 2: Using yalc
+
+1. Install yalc if you haven't already:
+```bash
+bun add -g yalc
+# or
+npm install -g yalc
+```
+
+2. Build and publish the package to yalc:
+```bash
+bun run build
+yalc publish
+```
+
+3. Add to your consuming project and install:
+```bash
+# Add this to your project's package.json scripts section
+"link:leaflet": "bunx yalc add @cporigin/leaflet && bun install"
+```
+
+4. Run the script in your consuming project:
+```bash
+bun run link:leaflet
+```
+
+### Method 3: Direct File Path Reference
 
 Add the package directly to your project's package.json using a local file path:
 
@@ -59,7 +85,7 @@ Add the package directly to your project's package.json using a local file path:
 
 Then run `bun install` in your consuming project.
 
-### Method 3: Using Bun Link
+### Method 4: Using Bun Link
 
 If you prefer to use linking (may require extra setup):
 
