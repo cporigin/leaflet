@@ -1,7 +1,7 @@
 /**
  * Polygon store - manages state related to map polygons
  */
-import { create } from 'zustand';
+import { createWithEqualityFn as create } from 'zustand/traditional';
 import { IStatusColorMap } from '../types/common';
 
 /**

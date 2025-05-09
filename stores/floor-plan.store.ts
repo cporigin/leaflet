@@ -1,11 +1,10 @@
 /**
  * Floor plan store - central state management for floor plan and map features
  */
-import { remove } from "lodash";
-import { createRef } from "react";
 import { Map as LeafletMap } from "leaflet";
-import { create } from 'zustand';
-import { ILayer, IPosition, ISelectedSpace, ITempPayload } from "../types/common";
+import { remove } from "lodash";
+import { createWithEqualityFn as create } from 'zustand/traditional';
+import { ILayer, ISelectedSpace, ITempPayload } from "../types/common";
 
 /**
  * Interface for the floor plan store state and actions

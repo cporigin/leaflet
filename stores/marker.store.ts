@@ -1,7 +1,7 @@
 /**
  * Marker store - manages state related to map markers
  */
-import { create } from 'zustand';
+import { createWithEqualityFn as create } from 'zustand/traditional';
 import { IStatusColorMap } from '../types/common';
 
 /**
