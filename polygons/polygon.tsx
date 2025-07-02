@@ -14,6 +14,7 @@ import {
 } from "../utils/leaflet";
 import { IBaseComponentProps, ILayer, IPosition } from "../types/common";
 import { Path } from "leaflet";
+import { nanoid } from "nanoid";
 
 interface CustomPolygonProps extends IBaseComponentProps {
 	layer: ILayer;
@@ -88,18 +89,18 @@ const CustomPolygon: FC<CustomPolygonProps> = (props) => {
 				)}
 				{...polygonProps({ layer, status, center })}
 			>
-				<Pane name={`tooltip-pane-${props?.layer?.id}`}>
+				<Pane name={`tooltip-pane-${nanoid()}`}>
 					<Tooltip {...childrenProps} />
 				</Pane>
 				{!disabledMarker && (
-					<Pane name={`polygon-marker-pane-${props?.layer?.id}`}>
+					<Pane name={`polygon-marker-pane-${nanoid()}`}>
 						<PolygonMarker
 							eventHandlers={{
 								click: () => polygonHandleClick(layer.id),
 							}}
 							{...childrenProps}
 						>
-							<Pane name={`tooltip-inner-pane-${props?.layer?.id}`}>
+							<Pane name={`tooltip-inner-pane-${nanoid()}`}>
 								{/* fix cant set eventsPointer: none */}
 								<Tooltip {...childrenProps} />
 							</Pane>
