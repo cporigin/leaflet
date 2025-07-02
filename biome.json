@@ -1,16 +1,11 @@
 {
   "files": {
-    "include": [
-      "src/**/*.js",
-      "src/**/*.ts",
-      "src/**/*.jsx",
-      "src/**/*.tsx",
-      "next.config.js"
-    ],
-    "ignore": [
-      "tests/*.js",
-      "src/**/*.test.js",
-      "src/utils/auth.ts"
+    "includes": [
+      "**/src/**/*.js",
+      "**/src/**/*.ts",
+      "**/src/**/*.jsx",
+      "**/src/**/*.tsx",
+      "**/next.config.js"
     ]
   },
   "javascript": {
@@ -31,10 +26,16 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 80,
-    "ignore": []
+    "includes": [
+      "**"
+    ]
   },
-  "organizeImports": {
-    "enabled": true
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "off"
+      }
+    }
   },
   "linter": {
     "enabled": true,
@@ -54,7 +55,17 @@
         "noRenderReturnValue": "warn"
       },
       "style": {
-        "useImportType": "off"
+        "useImportType": "off",
+        "noParameterAssign": "error",
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "noUselessElse": "error"
       },
       "suspicious": {
         "noExplicitAny": "off",
@@ -72,8 +83,8 @@
   },
   "overrides": [
     {
-      "include": [
-        "src/api/openapi.ts"
+      "includes": [
+        "**/src/api/openapi.ts"
       ],
       "linter": {
         "enabled": false
