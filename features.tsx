@@ -11,12 +11,14 @@ import Polygons from "./polygons";
 /**
  * Container component for all map features
  * Controls edit mode and manages the visibility of markers and polygons
- * 
+ *
  * @returns Component with appropriate edit controls and map features
  */
 const FeatureLeaflet: FC = () => {
 	const tempMarkers = floorPlanStore((e) => e.tempLayers);
-	const selectedLayerNotEmpty = floorPlanStore((e) => !isEmpty(e.selectedLayer));
+	const selectedLayerNotEmpty = floorPlanStore(
+		(e) => !isEmpty(e.selectedLayer),
+	);
 	const isNotAdding = floorPlanStore((e) => e.mode !== "add");
 
 	if (isEmpty(tempMarkers)) {
