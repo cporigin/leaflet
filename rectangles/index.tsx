@@ -1,35 +1,35 @@
 /**
- * Component that renders all polygons on the map
+ * Component that renders all rectangles on the map
  */
 import { useMemo } from "react";
 import { filter, isEmpty, map } from "lodash";
 import floorPlanStore from "../stores/floor-plan.store";
-import Polygon from "./polygon";
+import Rectangle from "./rectangle";
 import { ILayer } from "../types/common";
 
 /**
- * Container component for all polygons on the map
- * Filters polygon layers with position data from the store and renders them
+ * Container component for all rectangles on the map
+ * Filters rectangle layers with position data from the store and renders them
  *
- * @returns Collection of polygon components
+ * @returns Collection of rectangle components
  */
-export default function Polygons() {
+export default function Rectangles() {
   const tempLayers = floorPlanStore((e) => e.tempLayers);
   const selectedSpace = floorPlanStore((e) => e.selectedSpace);
 
-  const tempPolygons = useMemo(
-    () => filter(tempLayers, (el) => (!el.type || el.type === "polygon") && el.position_data) as ILayer[],
+  const tempRectangles = useMemo(
+    () => filter(tempLayers, (el) => el.type === "rectangle" && el.position_data) as ILayer[],
     [tempLayers]
   );
 
-  if (isEmpty(tempPolygons)) {
+  if (isEmpty(tempRectangles)) {
     return <></>;
   }
 
   return (
     <>
-      {map(tempPolygons, (layer, index) => (
-        <Polygon
+      {map(tempRectangles, (layer, index) => (
+        <Rectangle
           key={layer.id?.toString() || index}
           layer={layer}
           selectedLayer={layer.id === selectedSpace.id}

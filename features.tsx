@@ -1,5 +1,5 @@
 /**
- * Feature component that manages all map features (markers and polygons)
+ * Feature component that manages all map features (markers, polygons, and rectangles)
  */
 import { FC } from "react";
 import { isEmpty } from "lodash";
@@ -7,10 +7,11 @@ import floorPlanStore from "./stores/floor-plan.store";
 import CustomEditControl from "./edit-control";
 import Markers from "./markers";
 import Polygons from "./polygons";
+import Rectangles from "./rectangles";
 
 /**
  * Container component for all map features
- * Controls edit mode and manages the visibility of markers and polygons
+ * Controls edit mode and manages the visibility of markers, polygons, and rectangles
  *
  * @returns Component with appropriate edit controls and map features
  */
@@ -30,6 +31,7 @@ const FeatureLeaflet: FC = () => {
 		<CustomEditControl disabled={isNotAdding || selectedLayerNotEmpty}>
 			<Markers />
 			<Polygons />
+			<Rectangles />
 		</CustomEditControl>
 	);
 };

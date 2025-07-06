@@ -30,7 +30,7 @@ export interface ISelectedSpace {
  * Payload structure for temporary layers
  */
 export interface ITempPayload {
-  type: "marker" | "polygon";
+  type: "marker" | "polygon" | "rectangle";
   position_data: IPosition[];
 }
 

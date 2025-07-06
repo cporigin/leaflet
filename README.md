@@ -5,6 +5,7 @@ A TypeScript-based Leaflet component library for React applications, providing i
 ## Features
 
 - **Interactive Map**: Built on React Leaflet with drawing and editing controls
+- **Drawing Tools**: Support for polygons, rectangles, and markers with click-and-drag functionality
 - **Customizable Components**: Easily override default components with your own implementations
 - **State Management**: Zustand-based stores for efficient state handling
 - **TypeScript Support**: Full TypeScript support with comprehensive type definitions
@@ -152,6 +153,28 @@ function MyMap() {
   );
 }
 ```
+
+### Drawing Features
+
+The map supports multiple drawing tools:
+
+- **Polygon Drawing**: Click to add points, double-click to finish
+- **Rectangle Drawing**: Click and drag to create rectangular areas
+- **Marker Drawing**: Click to place point markers
+
+To enable drawing mode:
+
+```tsx
+import { floorPlanStore } from '@cporigin/leaflet';
+
+// Enable drawing mode
+floorPlanStore.getState().setMode('add');
+
+// Return to default mode
+floorPlanStore.getState().setMode('default');
+```
+
+When in drawing mode, both polygon and rectangle tools are available in the toolbar.
 
 ## Advanced Usage
 
