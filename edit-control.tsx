@@ -48,6 +48,23 @@ const CustomEditControl: FC<CustomEditControlProps> = memo((props) => {
 			e.target?._layers?.[_leaflet_id]?.remove();
 		}
 
+		if (type === "rectangle") {
+			const { _leaflet_id } = layer;
+			const bounds = layer.getBounds();
+			const newLayer = {
+				type,
+				position_data: [
+					{ lat: bounds.getNorth(), lng: bounds.getWest() },
+					{ lat: bounds.getNorth(), lng: bounds.getEast() },
+					{ lat: bounds.getSouth(), lng: bounds.getEast() },
+					{ lat: bounds.getSouth(), lng: bounds.getWest() },
+				] as IPosition[],
+			};
+
+			addTempLayer(newLayer);
+			e.target?._layers?.[_leaflet_id]?.remove();
+		}
+
 		if (type === "circle") {
 			console.log(e);
 		}
@@ -65,6 +82,20 @@ const CustomEditControl: FC<CustomEditControlProps> = memo((props) => {
 
 		const result = tempLayers.map((tempLayer: ILayer) => {
 			if (Number(tempLayer?.id) === Number(poly.options?.attribution)) {
+				// Handle rectangle editing by converting bounds back to position data
+				if (tempLayer.type === "rectangle" && poly.getBounds) {
+					const bounds = poly.getBounds();
+					return {
+						...tempLayer,
+						position_data: [
+							{ lat: bounds.getNorth(), lng: bounds.getWest() },
+							{ lat: bounds.getNorth(), lng: bounds.getEast() },
+							{ lat: bounds.getSouth(), lng: bounds.getEast() },
+							{ lat: bounds.getSouth(), lng: bounds.getWest() },
+						] as IPosition[],
+					};
+				}
+				// Handle polygon editing
 				return { ...tempLayer, position_data: poly.editing.latlngs[0][0] };
 			}
 			return tempLayer;
@@ -93,7 +124,7 @@ const CustomEditControl: FC<CustomEditControlProps> = memo((props) => {
 			circle: false,
 			polyline: false,
 			circlemarker: false,
-			rectangle: false,
+			rectangle: isAdding,
 			marker: false,
 			polygon: isAdding,
 		},
@@ -112,6 +143,7 @@ const CustomEditControl: FC<CustomEditControlProps> = memo((props) => {
 		if (mode === "add") {
 			if (drawControlRef.current) {
 				drawControlRef.current._toolbars.draw._modes.polygon.handler.enable();
+				drawControlRef.current._toolbars.draw._modes.rectangle.handler.enable();
 			}
 		}
 	}, [mode]);
