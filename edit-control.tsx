@@ -7,6 +7,7 @@ import { FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import floorPlanStore from "./stores/floor-plan.store";
 import { ILayer, IPosition } from "./types/common";
+import { convertRectangleToPolygonCoordinates } from "./utils/leaflet";
 
 interface CustomEditControlProps {
 	disabled?: boolean;
@@ -42,6 +43,20 @@ const CustomEditControl: FC<CustomEditControlProps> = memo((props) => {
 			const newLayer = {
 				type,
 				position_data: layer.getLatLngs()[0] as IPosition[],
+			};
+
+			addTempLayer(newLayer);
+			e.target?._layers?.[_leaflet_id]?.remove();
+		}
+
+		if (type === "rectangle") {
+			const { _leaflet_id } = layer;
+			const bounds = layer.getBounds();
+			const polygonCoordinates = convertRectangleToPolygonCoordinates(bounds);
+			
+			const newLayer = {
+				type: "polygon" as const, // Save rectangle as polygon
+				position_data: polygonCoordinates,
 			};
 
 			addTempLayer(newLayer);
@@ -93,7 +108,7 @@ const CustomEditControl: FC<CustomEditControlProps> = memo((props) => {
 			circle: false,
 			polyline: false,
 			circlemarker: false,
-			rectangle: false,
+			rectangle: isAdding,
 			marker: false,
 			polygon: isAdding,
 		},
