@@ -41,3 +41,23 @@ export function calculatePolybelOfPositions(positions: IPosition[]): [number, nu
   
   return [poleLat, poleLng];
 }
+
+/**
+ * Convert rectangle bounds to polygon coordinates
+ * Takes the rectangle bounds and returns an array of 4 corner positions that form a polygon
+ * 
+ * @param bounds - Rectangle bounds object with getSouthWest() and getNorthEast() methods
+ * @returns - Array of 4 IPosition objects representing the rectangle corners
+ */
+export function convertRectangleToPolygonCoordinates(bounds: any): IPosition[] {
+  const southWest = bounds.getSouthWest();
+  const northEast = bounds.getNorthEast();
+  
+  // Create 4 corner coordinates: SW, SE, NE, NW (clockwise from southwest)
+  return [
+    { lat: southWest.lat, lng: southWest.lng }, // Southwest
+    { lat: southWest.lat, lng: northEast.lng }, // Southeast  
+    { lat: northEast.lat, lng: northEast.lng }, // Northeast
+    { lat: northEast.lat, lng: southWest.lng }, // Northwest
+  ];
+}
